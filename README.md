@@ -60,7 +60,8 @@ Content-Type: application/json
 {
   "name": "Niklas",
   "email": "niklas@example.com",
-  "username": "niklas123"
+  "username": "niklas",
+  "password": "password"
 }
 ```
 
