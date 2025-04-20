@@ -1,36 +1,101 @@
-This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://nextjs.org/docs/app/api-reference/cli/create-next-app).
+# 🕒 Project Manager – Tidsrapportering & Fakturering med Next.js + Prisma + PostgreSQL
 
-## Getting Started
+Detta är ett fullstack-projekt byggt med **Next.js**, **TypeScript**, **Prisma** och **PostgreSQL**. Systemet hanterar användare, tidsrapportering och fakturering.
 
-First, run the development server:
+---
+
+## 🚀 Kom igång
+
+### 1. Klona projektet
+
+```bash
+git clone https://github.com/ditt-repo/project-manager.git
+cd project-manager
+```
+
+### 2. Installera beroenden
+
+```bash
+npm install
+```
+
+### 3. Skapa `.env`-fil
+
+```env
+DATABASE_URL="postgresql://<användare>:<lösenord>@localhost:5432/<databasnamn>"
+```
+
+Byt ut `<användare>`, `<lösenord>`, och `<databasnamn>` efter din setup.
+
+### 4. Skapa databas + kör migration
+
+```bash
+npx prisma migrate dev --name init
+```
+
+### 5. Starta utvecklingsserver
 
 ```bash
 npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-# or
-bun dev
 ```
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+---
 
-You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
+## 🧪 Testa API
 
-This project uses [`next/font`](https://nextjs.org/docs/app/building-your-application/optimizing/fonts) to automatically optimize and load [Geist](https://vercel.com/font), a new font family for Vercel.
+### Hämta alla användare (GET)
 
-## Learn More
+```
+GET /api/users
+```
 
-To learn more about Next.js, take a look at the following resources:
+### Skapa användare (POST)
 
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
+```
+POST /api/users
+Content-Type: application/json
+```
 
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js) - your feedback and contributions are welcome!
+```json
+{
+  "name": "Niklas",
+  "email": "niklas@example.com",
+  "username": "niklas123"
+}
+```
 
-## Deploy on Vercel
+---
 
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
+## 📚 Teknikstack
 
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/app/building-your-application/deploying) for more details.
+- [Next.js](https://nextjs.org/)
+- [TypeScript](https://www.typescriptlang.org/)
+- [Prisma](https://www.prisma.io/)
+- [PostgreSQL](https://www.postgresql.org/)
+- API-routes (Node.js via Next.js)
+- `src/`-struktur (best practice)
+
+---
+
+## 🧠 Prisma-kommandon
+
+| Kommando                               | Beskrivning                                  |
+| -------------------------------------- | -------------------------------------------- |
+| `npx prisma generate`                  | Genererar Prisma-klienten                    |
+| `npx prisma migrate dev --name <namn>` | Skapar och kör en migration                  |
+| `npx prisma studio`                    | Öppnar Prisma Studio (GUI för databasen)     |
+| `npx prisma db pull`                   | Synkar `schema.prisma` med befintlig databas |
+
+---
+
+## ✨ TODO / framtida förbättringar
+
+- [ ] Autentisering med NextAuth
+- [ ] UI för rapporteringstid
+- [ ] Adminpanel för fakturor
+- [ ] PDF-export av fakturor
+- [ ] Dashboard med grafer
+
+---
+
+## 🧑‍💻 Av: Niklas
