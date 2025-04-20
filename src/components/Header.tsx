@@ -1,8 +1,12 @@
 import Link from "next/link";
 import Styles from "@/styles/Header.module.css";
-import { signOut } from "next-auth/react";
+import { signOut, useSession } from "next-auth/react";
 
 const Header = () => {
+  const { data: session, status } = useSession();
+
+  if (!session) return <p>Inte inloggad</p>;
+
   return (
     <header className={Styles.header}>
       <h1 style={{ marginBottom: "0.5rem" }}>Project Manager 3.0</h1>
@@ -10,10 +14,18 @@ const Header = () => {
         <Link href="/" className={Styles.navLink}>
           Hem
         </Link>
+        {session.user?.role === "ADMIN" && (
+          <Link href="/users" className={Styles.navLink}>
+            Användare
+          </Link>
+        )}
       </nav>
       <button onClick={() => signOut({ callbackUrl: "/login" })}>
         Logga ut
       </button>
+      <p>
+        Inloggad som: {session.user?.name} som har rollen {session.user?.role}
+      </p>
     </header>
   );
 };

@@ -14,9 +14,9 @@ export default async function handler(
   }
 
   if (req.method === "POST") {
-    const { name, email, username, password } = req.body;
+    const { name, email, username, password, role } = req.body;
 
-    if (!name || !email || !username || !password) {
+    if (!name || !email || !username || !password || !role) {
       return res.status(400).json({ message: "Alla fält krävs" });
     }
 
@@ -29,6 +29,7 @@ export default async function handler(
           email,
           username,
           password: hashedPassword,
+          role,
         },
       });
 
