@@ -1,5 +1,6 @@
 import { NextApiRequest, NextApiResponse } from "next";
 import { PrismaClient } from "@prisma/client";
+import bcrypt from "bcrypt";
 
 const prisma = new PrismaClient();
 
@@ -13,24 +14,29 @@ export default async function handler(
   }
 
   if (req.method === "POST") {
-    const { name, email, username } = req.body;
+    const { name, email, username, password } = req.body;
 
-    if (!name || !email || !username) {
-      return res
-        .status(400)
-        .json({ message: "Namn, e-post och användarnamn krävs" });
+    if (!name || !email || !username || !password) {
+      return res.status(400).json({ message: "Alla fält krävs" });
     }
 
     try {
+      const hashedPassword = await bcrypt.hash(password, 10);
+
       const user = await prisma.user.create({
-        data: { name, email, username },
+        data: {
+          name,
+          email,
+          username,
+          password: hashedPassword,
+        },
       });
 
       return res.status(201).json(user);
-    } catch (error) {
+    } catch (error: any) {
       return res
         .status(500)
-        .json({ message: "Kunde inte skapa användare", error });
+        .json({ message: "Kunde inte skapa användare", error: error.message });
     }
   }
 

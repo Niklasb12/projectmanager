@@ -1,5 +1,6 @@
 import Link from "next/link";
 import Styles from "@/styles/Header.module.css";
+import { signOut } from "next-auth/react";
 
 const Header = () => {
   return (
@@ -10,6 +11,9 @@ const Header = () => {
           Hem
         </Link>
       </nav>
+      <button onClick={() => signOut({ callbackUrl: "/login" })}>
+        Logga ut
+      </button>
     </header>
   );
 };
