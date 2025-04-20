@@ -1,0 +1,15 @@
+/* Header.module.css */
+.header {
+  background-color: var(--color-primary);
+  padding: var(--padding);
+  color: white;
+}
+
+.navLink {
+  color: white;
+  text-decoration: none;
+}
+
+.navLink:hover {
+  text-decoration: underline;
+}
