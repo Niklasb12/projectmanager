@@ -1,6 +1,7 @@
 import { useState } from "react";
 import { signIn } from "next-auth/react";
 import { useRouter } from "next/router";
+import Styles from "@/styles/Login.module.css";
 
 export default function LoginPage() {
   const router = useRouter();
@@ -26,9 +27,9 @@ export default function LoginPage() {
   };
 
   return (
-    <div>
-      <h2>Logga in</h2>
-      <form onSubmit={handleSubmit}>
+    <div className={Styles.loginContainer}>
+      <form onSubmit={handleSubmit} className={Styles.loginForm}>
+        <h2>Logga in</h2>
         <label>
           E-post:
           <input
@@ -36,9 +37,9 @@ export default function LoginPage() {
             value={email}
             onChange={(e) => setEmail(e.target.value)}
             required
+            placeholder="E-postadress"
           />
         </label>
-        <br />
         <label>
           Lösenord:
           <input
@@ -46,9 +47,9 @@ export default function LoginPage() {
             value={password}
             onChange={(e) => setPassword(e.target.value)}
             required
+            placeholder="Lösenord"
           />
         </label>
-        <br />
         <button type="submit">Logga in</button>
         {error && <p>{error}</p>}
       </form>

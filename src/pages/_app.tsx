@@ -1,8 +1,16 @@
+import { Inter } from "next/font/google";
+import "@/styles/globals.css";
 import Layout from "@/components/Layout";
 import { useRouter } from "next/router";
-import type { AppProps } from "next/app";
-import "@/styles/globals.css";
 import { SessionProvider } from "next-auth/react";
+import type { AppProps } from "next/app";
+
+// Initiera fonten
+const inter = Inter({
+  subsets: ["latin"],
+  weight: ["400", "500", "600"],
+  variable: "--font-inter", // valfritt: gör den till CSS-variabel
+});
 
 export default function App({ Component, pageProps }: AppProps) {
   const router = useRouter();
@@ -10,13 +18,15 @@ export default function App({ Component, pageProps }: AppProps) {
 
   return (
     <SessionProvider session={pageProps.session}>
-      {isLoginPage ? (
-        <Component {...pageProps} />
-      ) : (
-        <Layout>
+      <main className={inter.className}>
+        {isLoginPage ? (
           <Component {...pageProps} />
-        </Layout>
-      )}
+        ) : (
+          <Layout>
+            <Component {...pageProps} />
+          </Layout>
+        )}
+      </main>
     </SessionProvider>
   );
 }
