@@ -1,5 +1,6 @@
 import Header from "./Header";
 import Footer from "./Footer";
+import "@/styles/globals.css";
 
 interface Props {
   children: React.ReactNode;
@@ -11,7 +12,7 @@ const Layout = ({ children }: Props) => {
       style={{ display: "flex", flexDirection: "column", minHeight: "100vh" }}
     >
       <Header />
-      <main style={{ flex: 1, padding: "1rem" }}>{children}</main>
+      <main className="main">{children}</main>
       <Footer />
     </div>
   );

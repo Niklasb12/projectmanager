@@ -62,8 +62,9 @@ const ProjectCard = ({ project }: Props) => {
         {project.projectRoles?.reduce((sum, role) => sum + role.hoursQuoted, 0)}
         h
       </p>
-
-      <button className={Styles.button}>Läs mer</button>
+      <div>
+        <button className={Styles.button}>Läs mer</button>
+      </div>
     </div>
   );
 };

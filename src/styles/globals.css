@@ -20,3 +20,14 @@ body {
   color: var(--color-text);
   height: calc(96dvh - 1px);
 }
+
+.main {
+  flex: 1;
+  padding: 1rem;
+}
+
+@media (max-width: 768px) {
+  .main {
+    padding: 0;
+  }
+}
