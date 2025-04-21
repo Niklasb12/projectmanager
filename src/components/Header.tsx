@@ -14,6 +14,12 @@ const Header = () => {
         <Link href="/" className={Styles.navLink}>
           Hem
         </Link>
+        <Link href="/my-projects" className={Styles.navLink}>
+          Mina projekt
+        </Link>
+        <Link href="/projects" className={Styles.navLink}>
+          Projekt
+        </Link>
         {session.user?.role === "ADMIN" && (
           <Link href="/users" className={Styles.navLink}>
             Användare
