@@ -2,8 +2,13 @@ import React, { useState } from "react";
 import { Editor } from "@tinymce/tinymce-react";
 import TeamSection from "@/components/TeamSection";
 import Styles from "@/styles/AddProjectForm.module.css";
+import type { Status } from "@/types/status";
 
-const AddProjectForm = () => {
+type Props = {
+  statuses: Status[];
+};
+
+const AddProjectForm = ({ statuses }: Props) => {
   const [description, setDescription] = useState("");
 
   return (
@@ -95,8 +100,13 @@ const AddProjectForm = () => {
             <label className={Styles.formLabel}>
               Status:
               <select>
-                <option>Pågående</option>
-                <option>Avslutat</option>
+                {statuses
+                  .sort((a, b) => a.id - b.id)
+                  .map((status) => (
+                    <option key={status.id} value={status.id}>
+                      {status.name}
+                    </option>
+                  ))}
               </select>
             </label>
           </div>
