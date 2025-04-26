@@ -1,25 +1,16 @@
 import { GetServerSideProps } from "next";
 import { getServerSession } from "next-auth";
 import { authOptions } from "@/pages/api/auth/[...nextauth]";
+import { getAllUsersQuery } from "@/lib/queries/users";
 
-export const getAdminUsers: GetServerSideProps = async (context) => {
+export const getAllUsers: GetServerSideProps = async (context) => {
   const session = await getServerSession(context.req, context.res, authOptions);
-  const apiUrl = process.env.NEXT_PUBLIC_API_URL;
 
-  if (!session) {
-    return {
-      redirect: { destination: "/login", permanent: false },
-    };
+  if (!session || session.user.role !== "admin") {
+    return { redirect: { destination: "/", permanent: false } };
   }
 
-  if (session.user.role !== "ADMIN") {
-    return {
-      redirect: { destination: "/", permanent: false },
-    };
-  }
-
-  const res = await fetch(`${apiUrl}/api/users`);
-  const users = await res.json();
+  const users = await getAllUsersQuery();
 
   return {
     props: { users },

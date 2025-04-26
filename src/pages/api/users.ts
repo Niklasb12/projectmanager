@@ -1,15 +1,14 @@
 import { NextApiRequest, NextApiResponse } from "next";
-import { PrismaClient } from "@prisma/client";
 import bcrypt from "bcrypt";
-
-const prisma = new PrismaClient();
+import { getAllUsersQuery } from "@/lib/queries/users";
+import { prisma } from "@/lib/db";
 
 export default async function handler(
   req: NextApiRequest,
   res: NextApiResponse
 ) {
   if (req.method === "GET") {
-    const users = await prisma.user.findMany();
+    const users = await getAllUsersQuery();
     return res.status(200).json(users);
   }
 
@@ -35,13 +34,13 @@ export default async function handler(
 
       return res.status(201).json(user);
     } catch (error: any) {
-      return res
-        .status(500)
-        .json({ message: "Kunde inte skapa användare", error: error.message });
+      return res.status(500).json({
+        message: "Kunde inte skapa användare",
+        error: error.message,
+      });
     }
   }
 
-  // Alla andra metoder
   res.setHeader("Allow", ["GET", "POST"]);
   return res.status(405).json({ message: "Method not allowed" });
 }

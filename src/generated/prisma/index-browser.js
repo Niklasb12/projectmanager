@@ -125,8 +125,11 @@ exports.Prisma.ProjectScalarFieldEnum = {
   deadline: 'deadline',
   hourLeft: 'hourLeft',
   projectType: 'projectType',
+  totalCost: 'totalCost',
+  salesValue: 'salesValue',
   statusId: 'statusId',
   customerId: 'customerId',
+  contactPersonId: 'contactPersonId',
   createdAt: 'createdAt',
   updatedAt: 'updatedAt'
 };
@@ -135,14 +138,17 @@ exports.Prisma.CustomerScalarFieldEnum = {
   id: 'id',
   name: 'name',
   orderer: 'orderer',
-  contactName: 'contactName',
-  contactEmail: 'contactEmail',
-  contactPhone: 'contactPhone',
   poNumber: 'poNumber',
   hourlyRate: 'hourlyRate',
-  totalCost: 'totalCost',
-  salesValue: 'salesValue',
   partialInvoice: 'partialInvoice'
+};
+
+exports.Prisma.ContactPersonScalarFieldEnum = {
+  id: 'id',
+  name: 'name',
+  email: 'email',
+  phone: 'phone',
+  customerId: 'customerId'
 };
 
 exports.Prisma.StatusScalarFieldEnum = {
@@ -221,6 +227,7 @@ exports.TaskStatus = exports.$Enums.TaskStatus = {
 exports.Prisma.ModelName = {
   Project: 'Project',
   Customer: 'Customer',
+  ContactPerson: 'ContactPerson',
   Status: 'Status',
   ProjectRoleType: 'ProjectRoleType',
   ProjectRole: 'ProjectRole',

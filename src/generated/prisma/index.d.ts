@@ -24,6 +24,11 @@ export type Project = $Result.DefaultSelection<Prisma.$ProjectPayload>
  */
 export type Customer = $Result.DefaultSelection<Prisma.$CustomerPayload>
 /**
+ * Model ContactPerson
+ * 
+ */
+export type ContactPerson = $Result.DefaultSelection<Prisma.$ContactPersonPayload>
+/**
  * Model Status
  * 
  */
@@ -229,6 +234,16 @@ export class PrismaClient<
     * ```
     */
   get customer(): Prisma.CustomerDelegate<ExtArgs, ClientOptions>;
+
+  /**
+   * `prisma.contactPerson`: Exposes CRUD operations for the **ContactPerson** model.
+    * Example usage:
+    * ```ts
+    * // Fetch zero or more ContactPeople
+    * const contactPeople = await prisma.contactPerson.findMany()
+    * ```
+    */
+  get contactPerson(): Prisma.ContactPersonDelegate<ExtArgs, ClientOptions>;
 
   /**
    * `prisma.status`: Exposes CRUD operations for the **Status** model.
@@ -731,6 +746,7 @@ export namespace Prisma {
   export const ModelName: {
     Project: 'Project',
     Customer: 'Customer',
+    ContactPerson: 'ContactPerson',
     Status: 'Status',
     ProjectRoleType: 'ProjectRoleType',
     ProjectRole: 'ProjectRole',
@@ -755,7 +771,7 @@ export namespace Prisma {
       omit: GlobalOmitOptions
     }
     meta: {
-      modelProps: "project" | "customer" | "status" | "projectRoleType" | "projectRole" | "user" | "timeReport" | "projectTask"
+      modelProps: "project" | "customer" | "contactPerson" | "status" | "projectRoleType" | "projectRole" | "user" | "timeReport" | "projectTask"
       txIsolationLevel: Prisma.TransactionIsolationLevel
     }
     model: {
@@ -904,6 +920,80 @@ export namespace Prisma {
           count: {
             args: Prisma.CustomerCountArgs<ExtArgs>
             result: $Utils.Optional<CustomerCountAggregateOutputType> | number
+          }
+        }
+      }
+      ContactPerson: {
+        payload: Prisma.$ContactPersonPayload<ExtArgs>
+        fields: Prisma.ContactPersonFieldRefs
+        operations: {
+          findUnique: {
+            args: Prisma.ContactPersonFindUniqueArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$ContactPersonPayload> | null
+          }
+          findUniqueOrThrow: {
+            args: Prisma.ContactPersonFindUniqueOrThrowArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$ContactPersonPayload>
+          }
+          findFirst: {
+            args: Prisma.ContactPersonFindFirstArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$ContactPersonPayload> | null
+          }
+          findFirstOrThrow: {
+            args: Prisma.ContactPersonFindFirstOrThrowArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$ContactPersonPayload>
+          }
+          findMany: {
+            args: Prisma.ContactPersonFindManyArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$ContactPersonPayload>[]
+          }
+          create: {
+            args: Prisma.ContactPersonCreateArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$ContactPersonPayload>
+          }
+          createMany: {
+            args: Prisma.ContactPersonCreateManyArgs<ExtArgs>
+            result: BatchPayload
+          }
+          createManyAndReturn: {
+            args: Prisma.ContactPersonCreateManyAndReturnArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$ContactPersonPayload>[]
+          }
+          delete: {
+            args: Prisma.ContactPersonDeleteArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$ContactPersonPayload>
+          }
+          update: {
+            args: Prisma.ContactPersonUpdateArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$ContactPersonPayload>
+          }
+          deleteMany: {
+            args: Prisma.ContactPersonDeleteManyArgs<ExtArgs>
+            result: BatchPayload
+          }
+          updateMany: {
+            args: Prisma.ContactPersonUpdateManyArgs<ExtArgs>
+            result: BatchPayload
+          }
+          updateManyAndReturn: {
+            args: Prisma.ContactPersonUpdateManyAndReturnArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$ContactPersonPayload>[]
+          }
+          upsert: {
+            args: Prisma.ContactPersonUpsertArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$ContactPersonPayload>
+          }
+          aggregate: {
+            args: Prisma.ContactPersonAggregateArgs<ExtArgs>
+            result: $Utils.Optional<AggregateContactPerson>
+          }
+          groupBy: {
+            args: Prisma.ContactPersonGroupByArgs<ExtArgs>
+            result: $Utils.Optional<ContactPersonGroupByOutputType>[]
+          }
+          count: {
+            args: Prisma.ContactPersonCountArgs<ExtArgs>
+            result: $Utils.Optional<ContactPersonCountAggregateOutputType> | number
           }
         }
       }
@@ -1437,6 +1527,7 @@ export namespace Prisma {
   export type GlobalOmitConfig = {
     project?: ProjectOmit
     customer?: CustomerOmit
+    contactPerson?: ContactPersonOmit
     status?: StatusOmit
     projectRoleType?: ProjectRoleTypeOmit
     projectRole?: ProjectRoleOmit
@@ -1586,10 +1677,12 @@ export namespace Prisma {
    */
 
   export type CustomerCountOutputType = {
+    contactPersons: number
     projects: number
   }
 
   export type CustomerCountOutputTypeSelect<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    contactPersons?: boolean | CustomerCountOutputTypeCountContactPersonsArgs
     projects?: boolean | CustomerCountOutputTypeCountProjectsArgs
   }
 
@@ -1607,7 +1700,45 @@ export namespace Prisma {
   /**
    * CustomerCountOutputType without action
    */
+  export type CustomerCountOutputTypeCountContactPersonsArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    where?: ContactPersonWhereInput
+  }
+
+  /**
+   * CustomerCountOutputType without action
+   */
   export type CustomerCountOutputTypeCountProjectsArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    where?: ProjectWhereInput
+  }
+
+
+  /**
+   * Count Type ContactPersonCountOutputType
+   */
+
+  export type ContactPersonCountOutputType = {
+    projects: number
+  }
+
+  export type ContactPersonCountOutputTypeSelect<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    projects?: boolean | ContactPersonCountOutputTypeCountProjectsArgs
+  }
+
+  // Custom InputTypes
+  /**
+   * ContactPersonCountOutputType without action
+   */
+  export type ContactPersonCountOutputTypeDefaultArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the ContactPersonCountOutputType
+     */
+    select?: ContactPersonCountOutputTypeSelect<ExtArgs> | null
+  }
+
+  /**
+   * ContactPersonCountOutputType without action
+   */
+  export type ContactPersonCountOutputTypeCountProjectsArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     where?: ProjectWhereInput
   }
 
@@ -1742,15 +1873,21 @@ export namespace Prisma {
   export type ProjectAvgAggregateOutputType = {
     id: number | null
     hourLeft: number | null
+    totalCost: number | null
+    salesValue: number | null
     statusId: number | null
     customerId: number | null
+    contactPersonId: number | null
   }
 
   export type ProjectSumAggregateOutputType = {
     id: number | null
     hourLeft: number | null
+    totalCost: number | null
+    salesValue: number | null
     statusId: number | null
     customerId: number | null
+    contactPersonId: number | null
   }
 
   export type ProjectMinAggregateOutputType = {
@@ -1761,8 +1898,11 @@ export namespace Prisma {
     deadline: Date | null
     hourLeft: number | null
     projectType: string | null
+    totalCost: number | null
+    salesValue: number | null
     statusId: number | null
     customerId: number | null
+    contactPersonId: number | null
     createdAt: Date | null
     updatedAt: Date | null
   }
@@ -1775,8 +1915,11 @@ export namespace Prisma {
     deadline: Date | null
     hourLeft: number | null
     projectType: string | null
+    totalCost: number | null
+    salesValue: number | null
     statusId: number | null
     customerId: number | null
+    contactPersonId: number | null
     createdAt: Date | null
     updatedAt: Date | null
   }
@@ -1789,8 +1932,11 @@ export namespace Prisma {
     deadline: number
     hourLeft: number
     projectType: number
+    totalCost: number
+    salesValue: number
     statusId: number
     customerId: number
+    contactPersonId: number
     createdAt: number
     updatedAt: number
     _all: number
@@ -1800,15 +1946,21 @@ export namespace Prisma {
   export type ProjectAvgAggregateInputType = {
     id?: true
     hourLeft?: true
+    totalCost?: true
+    salesValue?: true
     statusId?: true
     customerId?: true
+    contactPersonId?: true
   }
 
   export type ProjectSumAggregateInputType = {
     id?: true
     hourLeft?: true
+    totalCost?: true
+    salesValue?: true
     statusId?: true
     customerId?: true
+    contactPersonId?: true
   }
 
   export type ProjectMinAggregateInputType = {
@@ -1819,8 +1971,11 @@ export namespace Prisma {
     deadline?: true
     hourLeft?: true
     projectType?: true
+    totalCost?: true
+    salesValue?: true
     statusId?: true
     customerId?: true
+    contactPersonId?: true
     createdAt?: true
     updatedAt?: true
   }
@@ -1833,8 +1988,11 @@ export namespace Prisma {
     deadline?: true
     hourLeft?: true
     projectType?: true
+    totalCost?: true
+    salesValue?: true
     statusId?: true
     customerId?: true
+    contactPersonId?: true
     createdAt?: true
     updatedAt?: true
   }
@@ -1847,8 +2005,11 @@ export namespace Prisma {
     deadline?: true
     hourLeft?: true
     projectType?: true
+    totalCost?: true
+    salesValue?: true
     statusId?: true
     customerId?: true
+    contactPersonId?: true
     createdAt?: true
     updatedAt?: true
     _all?: true
@@ -1948,8 +2109,11 @@ export namespace Prisma {
     deadline: Date
     hourLeft: number
     projectType: string
+    totalCost: number
+    salesValue: number
     statusId: number | null
     customerId: number | null
+    contactPersonId: number | null
     createdAt: Date
     updatedAt: Date
     _count: ProjectCountAggregateOutputType | null
@@ -1981,12 +2145,16 @@ export namespace Prisma {
     deadline?: boolean
     hourLeft?: boolean
     projectType?: boolean
+    totalCost?: boolean
+    salesValue?: boolean
     statusId?: boolean
     customerId?: boolean
+    contactPersonId?: boolean
     createdAt?: boolean
     updatedAt?: boolean
     status?: boolean | Project$statusArgs<ExtArgs>
     customer?: boolean | Project$customerArgs<ExtArgs>
+    contactPerson?: boolean | Project$contactPersonArgs<ExtArgs>
     timeReports?: boolean | Project$timeReportsArgs<ExtArgs>
     tasks?: boolean | Project$tasksArgs<ExtArgs>
     projectRoles?: boolean | Project$projectRolesArgs<ExtArgs>
@@ -2001,12 +2169,16 @@ export namespace Prisma {
     deadline?: boolean
     hourLeft?: boolean
     projectType?: boolean
+    totalCost?: boolean
+    salesValue?: boolean
     statusId?: boolean
     customerId?: boolean
+    contactPersonId?: boolean
     createdAt?: boolean
     updatedAt?: boolean
     status?: boolean | Project$statusArgs<ExtArgs>
     customer?: boolean | Project$customerArgs<ExtArgs>
+    contactPerson?: boolean | Project$contactPersonArgs<ExtArgs>
   }, ExtArgs["result"]["project"]>
 
   export type ProjectSelectUpdateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
@@ -2017,12 +2189,16 @@ export namespace Prisma {
     deadline?: boolean
     hourLeft?: boolean
     projectType?: boolean
+    totalCost?: boolean
+    salesValue?: boolean
     statusId?: boolean
     customerId?: boolean
+    contactPersonId?: boolean
     createdAt?: boolean
     updatedAt?: boolean
     status?: boolean | Project$statusArgs<ExtArgs>
     customer?: boolean | Project$customerArgs<ExtArgs>
+    contactPerson?: boolean | Project$contactPersonArgs<ExtArgs>
   }, ExtArgs["result"]["project"]>
 
   export type ProjectSelectScalar = {
@@ -2033,16 +2209,20 @@ export namespace Prisma {
     deadline?: boolean
     hourLeft?: boolean
     projectType?: boolean
+    totalCost?: boolean
+    salesValue?: boolean
     statusId?: boolean
     customerId?: boolean
+    contactPersonId?: boolean
     createdAt?: boolean
     updatedAt?: boolean
   }
 
-  export type ProjectOmit<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetOmit<"id" | "name" | "description" | "startDate" | "deadline" | "hourLeft" | "projectType" | "statusId" | "customerId" | "createdAt" | "updatedAt", ExtArgs["result"]["project"]>
+  export type ProjectOmit<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetOmit<"id" | "name" | "description" | "startDate" | "deadline" | "hourLeft" | "projectType" | "totalCost" | "salesValue" | "statusId" | "customerId" | "contactPersonId" | "createdAt" | "updatedAt", ExtArgs["result"]["project"]>
   export type ProjectInclude<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     status?: boolean | Project$statusArgs<ExtArgs>
     customer?: boolean | Project$customerArgs<ExtArgs>
+    contactPerson?: boolean | Project$contactPersonArgs<ExtArgs>
     timeReports?: boolean | Project$timeReportsArgs<ExtArgs>
     tasks?: boolean | Project$tasksArgs<ExtArgs>
     projectRoles?: boolean | Project$projectRolesArgs<ExtArgs>
@@ -2051,10 +2231,12 @@ export namespace Prisma {
   export type ProjectIncludeCreateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     status?: boolean | Project$statusArgs<ExtArgs>
     customer?: boolean | Project$customerArgs<ExtArgs>
+    contactPerson?: boolean | Project$contactPersonArgs<ExtArgs>
   }
   export type ProjectIncludeUpdateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     status?: boolean | Project$statusArgs<ExtArgs>
     customer?: boolean | Project$customerArgs<ExtArgs>
+    contactPerson?: boolean | Project$contactPersonArgs<ExtArgs>
   }
 
   export type $ProjectPayload<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
@@ -2062,6 +2244,7 @@ export namespace Prisma {
     objects: {
       status: Prisma.$StatusPayload<ExtArgs> | null
       customer: Prisma.$CustomerPayload<ExtArgs> | null
+      contactPerson: Prisma.$ContactPersonPayload<ExtArgs> | null
       timeReports: Prisma.$TimeReportPayload<ExtArgs>[]
       tasks: Prisma.$ProjectTaskPayload<ExtArgs>[]
       projectRoles: Prisma.$ProjectRolePayload<ExtArgs>[]
@@ -2074,8 +2257,11 @@ export namespace Prisma {
       deadline: Date
       hourLeft: number
       projectType: string
+      totalCost: number
+      salesValue: number
       statusId: number | null
       customerId: number | null
+      contactPersonId: number | null
       createdAt: Date
       updatedAt: Date
     }, ExtArgs["result"]["project"]>
@@ -2474,6 +2660,7 @@ export namespace Prisma {
     readonly [Symbol.toStringTag]: "PrismaPromise"
     status<T extends Project$statusArgs<ExtArgs> = {}>(args?: Subset<T, Project$statusArgs<ExtArgs>>): Prisma__StatusClient<$Result.GetResult<Prisma.$StatusPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | null, null, ExtArgs, GlobalOmitOptions>
     customer<T extends Project$customerArgs<ExtArgs> = {}>(args?: Subset<T, Project$customerArgs<ExtArgs>>): Prisma__CustomerClient<$Result.GetResult<Prisma.$CustomerPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | null, null, ExtArgs, GlobalOmitOptions>
+    contactPerson<T extends Project$contactPersonArgs<ExtArgs> = {}>(args?: Subset<T, Project$contactPersonArgs<ExtArgs>>): Prisma__ContactPersonClient<$Result.GetResult<Prisma.$ContactPersonPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | null, null, ExtArgs, GlobalOmitOptions>
     timeReports<T extends Project$timeReportsArgs<ExtArgs> = {}>(args?: Subset<T, Project$timeReportsArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$TimeReportPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
     tasks<T extends Project$tasksArgs<ExtArgs> = {}>(args?: Subset<T, Project$tasksArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$ProjectTaskPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
     projectRoles<T extends Project$projectRolesArgs<ExtArgs> = {}>(args?: Subset<T, Project$projectRolesArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$ProjectRolePayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
@@ -2513,8 +2700,11 @@ export namespace Prisma {
     readonly deadline: FieldRef<"Project", 'DateTime'>
     readonly hourLeft: FieldRef<"Project", 'Float'>
     readonly projectType: FieldRef<"Project", 'String'>
+    readonly totalCost: FieldRef<"Project", 'Float'>
+    readonly salesValue: FieldRef<"Project", 'Float'>
     readonly statusId: FieldRef<"Project", 'Int'>
     readonly customerId: FieldRef<"Project", 'Int'>
+    readonly contactPersonId: FieldRef<"Project", 'Int'>
     readonly createdAt: FieldRef<"Project", 'DateTime'>
     readonly updatedAt: FieldRef<"Project", 'DateTime'>
   }
@@ -2951,6 +3141,25 @@ export namespace Prisma {
   }
 
   /**
+   * Project.contactPerson
+   */
+  export type Project$contactPersonArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the ContactPerson
+     */
+    select?: ContactPersonSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the ContactPerson
+     */
+    omit?: ContactPersonOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: ContactPersonInclude<ExtArgs> | null
+    where?: ContactPersonWhereInput
+  }
+
+  /**
    * Project.timeReports
    */
   export type Project$timeReportsArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
@@ -3056,28 +3265,19 @@ export namespace Prisma {
   export type CustomerAvgAggregateOutputType = {
     id: number | null
     hourlyRate: number | null
-    totalCost: number | null
-    salesValue: number | null
   }
 
   export type CustomerSumAggregateOutputType = {
     id: number | null
     hourlyRate: number | null
-    totalCost: number | null
-    salesValue: number | null
   }
 
   export type CustomerMinAggregateOutputType = {
     id: number | null
     name: string | null
     orderer: string | null
-    contactName: string | null
-    contactEmail: string | null
-    contactPhone: string | null
     poNumber: string | null
     hourlyRate: number | null
-    totalCost: number | null
-    salesValue: number | null
     partialInvoice: boolean | null
   }
 
@@ -3085,13 +3285,8 @@ export namespace Prisma {
     id: number | null
     name: string | null
     orderer: string | null
-    contactName: string | null
-    contactEmail: string | null
-    contactPhone: string | null
     poNumber: string | null
     hourlyRate: number | null
-    totalCost: number | null
-    salesValue: number | null
     partialInvoice: boolean | null
   }
 
@@ -3099,13 +3294,8 @@ export namespace Prisma {
     id: number
     name: number
     orderer: number
-    contactName: number
-    contactEmail: number
-    contactPhone: number
     poNumber: number
     hourlyRate: number
-    totalCost: number
-    salesValue: number
     partialInvoice: number
     _all: number
   }
@@ -3114,28 +3304,19 @@ export namespace Prisma {
   export type CustomerAvgAggregateInputType = {
     id?: true
     hourlyRate?: true
-    totalCost?: true
-    salesValue?: true
   }
 
   export type CustomerSumAggregateInputType = {
     id?: true
     hourlyRate?: true
-    totalCost?: true
-    salesValue?: true
   }
 
   export type CustomerMinAggregateInputType = {
     id?: true
     name?: true
     orderer?: true
-    contactName?: true
-    contactEmail?: true
-    contactPhone?: true
     poNumber?: true
     hourlyRate?: true
-    totalCost?: true
-    salesValue?: true
     partialInvoice?: true
   }
 
@@ -3143,13 +3324,8 @@ export namespace Prisma {
     id?: true
     name?: true
     orderer?: true
-    contactName?: true
-    contactEmail?: true
-    contactPhone?: true
     poNumber?: true
     hourlyRate?: true
-    totalCost?: true
-    salesValue?: true
     partialInvoice?: true
   }
 
@@ -3157,13 +3333,8 @@ export namespace Prisma {
     id?: true
     name?: true
     orderer?: true
-    contactName?: true
-    contactEmail?: true
-    contactPhone?: true
     poNumber?: true
     hourlyRate?: true
-    totalCost?: true
-    salesValue?: true
     partialInvoice?: true
     _all?: true
   }
@@ -3258,13 +3429,8 @@ export namespace Prisma {
     id: number
     name: string
     orderer: string
-    contactName: string
-    contactEmail: string
-    contactPhone: string
     poNumber: string
     hourlyRate: number
-    totalCost: number
-    salesValue: number
     partialInvoice: boolean
     _count: CustomerCountAggregateOutputType | null
     _avg: CustomerAvgAggregateOutputType | null
@@ -3291,14 +3457,10 @@ export namespace Prisma {
     id?: boolean
     name?: boolean
     orderer?: boolean
-    contactName?: boolean
-    contactEmail?: boolean
-    contactPhone?: boolean
     poNumber?: boolean
     hourlyRate?: boolean
-    totalCost?: boolean
-    salesValue?: boolean
     partialInvoice?: boolean
+    contactPersons?: boolean | Customer$contactPersonsArgs<ExtArgs>
     projects?: boolean | Customer$projectsArgs<ExtArgs>
     _count?: boolean | CustomerCountOutputTypeDefaultArgs<ExtArgs>
   }, ExtArgs["result"]["customer"]>
@@ -3307,13 +3469,8 @@ export namespace Prisma {
     id?: boolean
     name?: boolean
     orderer?: boolean
-    contactName?: boolean
-    contactEmail?: boolean
-    contactPhone?: boolean
     poNumber?: boolean
     hourlyRate?: boolean
-    totalCost?: boolean
-    salesValue?: boolean
     partialInvoice?: boolean
   }, ExtArgs["result"]["customer"]>
 
@@ -3321,13 +3478,8 @@ export namespace Prisma {
     id?: boolean
     name?: boolean
     orderer?: boolean
-    contactName?: boolean
-    contactEmail?: boolean
-    contactPhone?: boolean
     poNumber?: boolean
     hourlyRate?: boolean
-    totalCost?: boolean
-    salesValue?: boolean
     partialInvoice?: boolean
   }, ExtArgs["result"]["customer"]>
 
@@ -3335,18 +3487,14 @@ export namespace Prisma {
     id?: boolean
     name?: boolean
     orderer?: boolean
-    contactName?: boolean
-    contactEmail?: boolean
-    contactPhone?: boolean
     poNumber?: boolean
     hourlyRate?: boolean
-    totalCost?: boolean
-    salesValue?: boolean
     partialInvoice?: boolean
   }
 
-  export type CustomerOmit<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetOmit<"id" | "name" | "orderer" | "contactName" | "contactEmail" | "contactPhone" | "poNumber" | "hourlyRate" | "totalCost" | "salesValue" | "partialInvoice", ExtArgs["result"]["customer"]>
+  export type CustomerOmit<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetOmit<"id" | "name" | "orderer" | "poNumber" | "hourlyRate" | "partialInvoice", ExtArgs["result"]["customer"]>
   export type CustomerInclude<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    contactPersons?: boolean | Customer$contactPersonsArgs<ExtArgs>
     projects?: boolean | Customer$projectsArgs<ExtArgs>
     _count?: boolean | CustomerCountOutputTypeDefaultArgs<ExtArgs>
   }
@@ -3356,19 +3504,15 @@ export namespace Prisma {
   export type $CustomerPayload<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     name: "Customer"
     objects: {
+      contactPersons: Prisma.$ContactPersonPayload<ExtArgs>[]
       projects: Prisma.$ProjectPayload<ExtArgs>[]
     }
     scalars: $Extensions.GetPayloadResult<{
       id: number
       name: string
       orderer: string
-      contactName: string
-      contactEmail: string
-      contactPhone: string
       poNumber: string
       hourlyRate: number
-      totalCost: number
-      salesValue: number
       partialInvoice: boolean
     }, ExtArgs["result"]["customer"]>
     composites: {}
@@ -3764,6 +3908,7 @@ export namespace Prisma {
    */
   export interface Prisma__CustomerClient<T, Null = never, ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs, GlobalOmitOptions = {}> extends Prisma.PrismaPromise<T> {
     readonly [Symbol.toStringTag]: "PrismaPromise"
+    contactPersons<T extends Customer$contactPersonsArgs<ExtArgs> = {}>(args?: Subset<T, Customer$contactPersonsArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$ContactPersonPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
     projects<T extends Customer$projectsArgs<ExtArgs> = {}>(args?: Subset<T, Customer$projectsArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$ProjectPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
     /**
      * Attaches callbacks for the resolution and/or rejection of the Promise.
@@ -3797,13 +3942,8 @@ export namespace Prisma {
     readonly id: FieldRef<"Customer", 'Int'>
     readonly name: FieldRef<"Customer", 'String'>
     readonly orderer: FieldRef<"Customer", 'String'>
-    readonly contactName: FieldRef<"Customer", 'String'>
-    readonly contactEmail: FieldRef<"Customer", 'String'>
-    readonly contactPhone: FieldRef<"Customer", 'String'>
     readonly poNumber: FieldRef<"Customer", 'String'>
     readonly hourlyRate: FieldRef<"Customer", 'Float'>
-    readonly totalCost: FieldRef<"Customer", 'Float'>
-    readonly salesValue: FieldRef<"Customer", 'Float'>
     readonly partialInvoice: FieldRef<"Customer", 'Boolean'>
   }
     
@@ -4193,6 +4333,30 @@ export namespace Prisma {
   }
 
   /**
+   * Customer.contactPersons
+   */
+  export type Customer$contactPersonsArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the ContactPerson
+     */
+    select?: ContactPersonSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the ContactPerson
+     */
+    omit?: ContactPersonOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: ContactPersonInclude<ExtArgs> | null
+    where?: ContactPersonWhereInput
+    orderBy?: ContactPersonOrderByWithRelationInput | ContactPersonOrderByWithRelationInput[]
+    cursor?: ContactPersonWhereUniqueInput
+    take?: number
+    skip?: number
+    distinct?: ContactPersonScalarFieldEnum | ContactPersonScalarFieldEnum[]
+  }
+
+  /**
    * Customer.projects
    */
   export type Customer$projectsArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
@@ -4232,6 +4396,1132 @@ export namespace Prisma {
      * Choose, which related nodes to fetch as well
      */
     include?: CustomerInclude<ExtArgs> | null
+  }
+
+
+  /**
+   * Model ContactPerson
+   */
+
+  export type AggregateContactPerson = {
+    _count: ContactPersonCountAggregateOutputType | null
+    _avg: ContactPersonAvgAggregateOutputType | null
+    _sum: ContactPersonSumAggregateOutputType | null
+    _min: ContactPersonMinAggregateOutputType | null
+    _max: ContactPersonMaxAggregateOutputType | null
+  }
+
+  export type ContactPersonAvgAggregateOutputType = {
+    id: number | null
+    customerId: number | null
+  }
+
+  export type ContactPersonSumAggregateOutputType = {
+    id: number | null
+    customerId: number | null
+  }
+
+  export type ContactPersonMinAggregateOutputType = {
+    id: number | null
+    name: string | null
+    email: string | null
+    phone: string | null
+    customerId: number | null
+  }
+
+  export type ContactPersonMaxAggregateOutputType = {
+    id: number | null
+    name: string | null
+    email: string | null
+    phone: string | null
+    customerId: number | null
+  }
+
+  export type ContactPersonCountAggregateOutputType = {
+    id: number
+    name: number
+    email: number
+    phone: number
+    customerId: number
+    _all: number
+  }
+
+
+  export type ContactPersonAvgAggregateInputType = {
+    id?: true
+    customerId?: true
+  }
+
+  export type ContactPersonSumAggregateInputType = {
+    id?: true
+    customerId?: true
+  }
+
+  export type ContactPersonMinAggregateInputType = {
+    id?: true
+    name?: true
+    email?: true
+    phone?: true
+    customerId?: true
+  }
+
+  export type ContactPersonMaxAggregateInputType = {
+    id?: true
+    name?: true
+    email?: true
+    phone?: true
+    customerId?: true
+  }
+
+  export type ContactPersonCountAggregateInputType = {
+    id?: true
+    name?: true
+    email?: true
+    phone?: true
+    customerId?: true
+    _all?: true
+  }
+
+  export type ContactPersonAggregateArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Filter which ContactPerson to aggregate.
+     */
+    where?: ContactPersonWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of ContactPeople to fetch.
+     */
+    orderBy?: ContactPersonOrderByWithRelationInput | ContactPersonOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the start position
+     */
+    cursor?: ContactPersonWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` ContactPeople from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` ContactPeople.
+     */
+    skip?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Count returned ContactPeople
+    **/
+    _count?: true | ContactPersonCountAggregateInputType
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Select which fields to average
+    **/
+    _avg?: ContactPersonAvgAggregateInputType
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Select which fields to sum
+    **/
+    _sum?: ContactPersonSumAggregateInputType
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Select which fields to find the minimum value
+    **/
+    _min?: ContactPersonMinAggregateInputType
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Select which fields to find the maximum value
+    **/
+    _max?: ContactPersonMaxAggregateInputType
+  }
+
+  export type GetContactPersonAggregateType<T extends ContactPersonAggregateArgs> = {
+        [P in keyof T & keyof AggregateContactPerson]: P extends '_count' | 'count'
+      ? T[P] extends true
+        ? number
+        : GetScalarType<T[P], AggregateContactPerson[P]>
+      : GetScalarType<T[P], AggregateContactPerson[P]>
+  }
+
+
+
+
+  export type ContactPersonGroupByArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    where?: ContactPersonWhereInput
+    orderBy?: ContactPersonOrderByWithAggregationInput | ContactPersonOrderByWithAggregationInput[]
+    by: ContactPersonScalarFieldEnum[] | ContactPersonScalarFieldEnum
+    having?: ContactPersonScalarWhereWithAggregatesInput
+    take?: number
+    skip?: number
+    _count?: ContactPersonCountAggregateInputType | true
+    _avg?: ContactPersonAvgAggregateInputType
+    _sum?: ContactPersonSumAggregateInputType
+    _min?: ContactPersonMinAggregateInputType
+    _max?: ContactPersonMaxAggregateInputType
+  }
+
+  export type ContactPersonGroupByOutputType = {
+    id: number
+    name: string
+    email: string
+    phone: string
+    customerId: number
+    _count: ContactPersonCountAggregateOutputType | null
+    _avg: ContactPersonAvgAggregateOutputType | null
+    _sum: ContactPersonSumAggregateOutputType | null
+    _min: ContactPersonMinAggregateOutputType | null
+    _max: ContactPersonMaxAggregateOutputType | null
+  }
+
+  type GetContactPersonGroupByPayload<T extends ContactPersonGroupByArgs> = Prisma.PrismaPromise<
+    Array<
+      PickEnumerable<ContactPersonGroupByOutputType, T['by']> &
+        {
+          [P in ((keyof T) & (keyof ContactPersonGroupByOutputType))]: P extends '_count'
+            ? T[P] extends boolean
+              ? number
+              : GetScalarType<T[P], ContactPersonGroupByOutputType[P]>
+            : GetScalarType<T[P], ContactPersonGroupByOutputType[P]>
+        }
+      >
+    >
+
+
+  export type ContactPersonSelect<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
+    id?: boolean
+    name?: boolean
+    email?: boolean
+    phone?: boolean
+    customerId?: boolean
+    customer?: boolean | CustomerDefaultArgs<ExtArgs>
+    projects?: boolean | ContactPerson$projectsArgs<ExtArgs>
+    _count?: boolean | ContactPersonCountOutputTypeDefaultArgs<ExtArgs>
+  }, ExtArgs["result"]["contactPerson"]>
+
+  export type ContactPersonSelectCreateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
+    id?: boolean
+    name?: boolean
+    email?: boolean
+    phone?: boolean
+    customerId?: boolean
+    customer?: boolean | CustomerDefaultArgs<ExtArgs>
+  }, ExtArgs["result"]["contactPerson"]>
+
+  export type ContactPersonSelectUpdateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
+    id?: boolean
+    name?: boolean
+    email?: boolean
+    phone?: boolean
+    customerId?: boolean
+    customer?: boolean | CustomerDefaultArgs<ExtArgs>
+  }, ExtArgs["result"]["contactPerson"]>
+
+  export type ContactPersonSelectScalar = {
+    id?: boolean
+    name?: boolean
+    email?: boolean
+    phone?: boolean
+    customerId?: boolean
+  }
+
+  export type ContactPersonOmit<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetOmit<"id" | "name" | "email" | "phone" | "customerId", ExtArgs["result"]["contactPerson"]>
+  export type ContactPersonInclude<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    customer?: boolean | CustomerDefaultArgs<ExtArgs>
+    projects?: boolean | ContactPerson$projectsArgs<ExtArgs>
+    _count?: boolean | ContactPersonCountOutputTypeDefaultArgs<ExtArgs>
+  }
+  export type ContactPersonIncludeCreateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    customer?: boolean | CustomerDefaultArgs<ExtArgs>
+  }
+  export type ContactPersonIncludeUpdateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    customer?: boolean | CustomerDefaultArgs<ExtArgs>
+  }
+
+  export type $ContactPersonPayload<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    name: "ContactPerson"
+    objects: {
+      customer: Prisma.$CustomerPayload<ExtArgs>
+      projects: Prisma.$ProjectPayload<ExtArgs>[]
+    }
+    scalars: $Extensions.GetPayloadResult<{
+      id: number
+      name: string
+      email: string
+      phone: string
+      customerId: number
+    }, ExtArgs["result"]["contactPerson"]>
+    composites: {}
+  }
+
+  type ContactPersonGetPayload<S extends boolean | null | undefined | ContactPersonDefaultArgs> = $Result.GetResult<Prisma.$ContactPersonPayload, S>
+
+  type ContactPersonCountArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> =
+    Omit<ContactPersonFindManyArgs, 'select' | 'include' | 'distinct' | 'omit'> & {
+      select?: ContactPersonCountAggregateInputType | true
+    }
+
+  export interface ContactPersonDelegate<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs, GlobalOmitOptions = {}> {
+    [K: symbol]: { types: Prisma.TypeMap<ExtArgs>['model']['ContactPerson'], meta: { name: 'ContactPerson' } }
+    /**
+     * Find zero or one ContactPerson that matches the filter.
+     * @param {ContactPersonFindUniqueArgs} args - Arguments to find a ContactPerson
+     * @example
+     * // Get one ContactPerson
+     * const contactPerson = await prisma.contactPerson.findUnique({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findUnique<T extends ContactPersonFindUniqueArgs>(args: SelectSubset<T, ContactPersonFindUniqueArgs<ExtArgs>>): Prisma__ContactPersonClient<$Result.GetResult<Prisma.$ContactPersonPayload<ExtArgs>, T, "findUnique", GlobalOmitOptions> | null, null, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Find one ContactPerson that matches the filter or throw an error with `error.code='P2025'`
+     * if no matches were found.
+     * @param {ContactPersonFindUniqueOrThrowArgs} args - Arguments to find a ContactPerson
+     * @example
+     * // Get one ContactPerson
+     * const contactPerson = await prisma.contactPerson.findUniqueOrThrow({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findUniqueOrThrow<T extends ContactPersonFindUniqueOrThrowArgs>(args: SelectSubset<T, ContactPersonFindUniqueOrThrowArgs<ExtArgs>>): Prisma__ContactPersonClient<$Result.GetResult<Prisma.$ContactPersonPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Find the first ContactPerson that matches the filter.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {ContactPersonFindFirstArgs} args - Arguments to find a ContactPerson
+     * @example
+     * // Get one ContactPerson
+     * const contactPerson = await prisma.contactPerson.findFirst({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findFirst<T extends ContactPersonFindFirstArgs>(args?: SelectSubset<T, ContactPersonFindFirstArgs<ExtArgs>>): Prisma__ContactPersonClient<$Result.GetResult<Prisma.$ContactPersonPayload<ExtArgs>, T, "findFirst", GlobalOmitOptions> | null, null, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Find the first ContactPerson that matches the filter or
+     * throw `PrismaKnownClientError` with `P2025` code if no matches were found.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {ContactPersonFindFirstOrThrowArgs} args - Arguments to find a ContactPerson
+     * @example
+     * // Get one ContactPerson
+     * const contactPerson = await prisma.contactPerson.findFirstOrThrow({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findFirstOrThrow<T extends ContactPersonFindFirstOrThrowArgs>(args?: SelectSubset<T, ContactPersonFindFirstOrThrowArgs<ExtArgs>>): Prisma__ContactPersonClient<$Result.GetResult<Prisma.$ContactPersonPayload<ExtArgs>, T, "findFirstOrThrow", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Find zero or more ContactPeople that matches the filter.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {ContactPersonFindManyArgs} args - Arguments to filter and select certain fields only.
+     * @example
+     * // Get all ContactPeople
+     * const contactPeople = await prisma.contactPerson.findMany()
+     * 
+     * // Get first 10 ContactPeople
+     * const contactPeople = await prisma.contactPerson.findMany({ take: 10 })
+     * 
+     * // Only select the `id`
+     * const contactPersonWithIdOnly = await prisma.contactPerson.findMany({ select: { id: true } })
+     * 
+     */
+    findMany<T extends ContactPersonFindManyArgs>(args?: SelectSubset<T, ContactPersonFindManyArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$ContactPersonPayload<ExtArgs>, T, "findMany", GlobalOmitOptions>>
+
+    /**
+     * Create a ContactPerson.
+     * @param {ContactPersonCreateArgs} args - Arguments to create a ContactPerson.
+     * @example
+     * // Create one ContactPerson
+     * const ContactPerson = await prisma.contactPerson.create({
+     *   data: {
+     *     // ... data to create a ContactPerson
+     *   }
+     * })
+     * 
+     */
+    create<T extends ContactPersonCreateArgs>(args: SelectSubset<T, ContactPersonCreateArgs<ExtArgs>>): Prisma__ContactPersonClient<$Result.GetResult<Prisma.$ContactPersonPayload<ExtArgs>, T, "create", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Create many ContactPeople.
+     * @param {ContactPersonCreateManyArgs} args - Arguments to create many ContactPeople.
+     * @example
+     * // Create many ContactPeople
+     * const contactPerson = await prisma.contactPerson.createMany({
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     *     
+     */
+    createMany<T extends ContactPersonCreateManyArgs>(args?: SelectSubset<T, ContactPersonCreateManyArgs<ExtArgs>>): Prisma.PrismaPromise<BatchPayload>
+
+    /**
+     * Create many ContactPeople and returns the data saved in the database.
+     * @param {ContactPersonCreateManyAndReturnArgs} args - Arguments to create many ContactPeople.
+     * @example
+     * // Create many ContactPeople
+     * const contactPerson = await prisma.contactPerson.createManyAndReturn({
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     * 
+     * // Create many ContactPeople and only return the `id`
+     * const contactPersonWithIdOnly = await prisma.contactPerson.createManyAndReturn({
+     *   select: { id: true },
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * 
+     */
+    createManyAndReturn<T extends ContactPersonCreateManyAndReturnArgs>(args?: SelectSubset<T, ContactPersonCreateManyAndReturnArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$ContactPersonPayload<ExtArgs>, T, "createManyAndReturn", GlobalOmitOptions>>
+
+    /**
+     * Delete a ContactPerson.
+     * @param {ContactPersonDeleteArgs} args - Arguments to delete one ContactPerson.
+     * @example
+     * // Delete one ContactPerson
+     * const ContactPerson = await prisma.contactPerson.delete({
+     *   where: {
+     *     // ... filter to delete one ContactPerson
+     *   }
+     * })
+     * 
+     */
+    delete<T extends ContactPersonDeleteArgs>(args: SelectSubset<T, ContactPersonDeleteArgs<ExtArgs>>): Prisma__ContactPersonClient<$Result.GetResult<Prisma.$ContactPersonPayload<ExtArgs>, T, "delete", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Update one ContactPerson.
+     * @param {ContactPersonUpdateArgs} args - Arguments to update one ContactPerson.
+     * @example
+     * // Update one ContactPerson
+     * const contactPerson = await prisma.contactPerson.update({
+     *   where: {
+     *     // ... provide filter here
+     *   },
+     *   data: {
+     *     // ... provide data here
+     *   }
+     * })
+     * 
+     */
+    update<T extends ContactPersonUpdateArgs>(args: SelectSubset<T, ContactPersonUpdateArgs<ExtArgs>>): Prisma__ContactPersonClient<$Result.GetResult<Prisma.$ContactPersonPayload<ExtArgs>, T, "update", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Delete zero or more ContactPeople.
+     * @param {ContactPersonDeleteManyArgs} args - Arguments to filter ContactPeople to delete.
+     * @example
+     * // Delete a few ContactPeople
+     * const { count } = await prisma.contactPerson.deleteMany({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     * 
+     */
+    deleteMany<T extends ContactPersonDeleteManyArgs>(args?: SelectSubset<T, ContactPersonDeleteManyArgs<ExtArgs>>): Prisma.PrismaPromise<BatchPayload>
+
+    /**
+     * Update zero or more ContactPeople.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {ContactPersonUpdateManyArgs} args - Arguments to update one or more rows.
+     * @example
+     * // Update many ContactPeople
+     * const contactPerson = await prisma.contactPerson.updateMany({
+     *   where: {
+     *     // ... provide filter here
+     *   },
+     *   data: {
+     *     // ... provide data here
+     *   }
+     * })
+     * 
+     */
+    updateMany<T extends ContactPersonUpdateManyArgs>(args: SelectSubset<T, ContactPersonUpdateManyArgs<ExtArgs>>): Prisma.PrismaPromise<BatchPayload>
+
+    /**
+     * Update zero or more ContactPeople and returns the data updated in the database.
+     * @param {ContactPersonUpdateManyAndReturnArgs} args - Arguments to update many ContactPeople.
+     * @example
+     * // Update many ContactPeople
+     * const contactPerson = await prisma.contactPerson.updateManyAndReturn({
+     *   where: {
+     *     // ... provide filter here
+     *   },
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     * 
+     * // Update zero or more ContactPeople and only return the `id`
+     * const contactPersonWithIdOnly = await prisma.contactPerson.updateManyAndReturn({
+     *   select: { id: true },
+     *   where: {
+     *     // ... provide filter here
+     *   },
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * 
+     */
+    updateManyAndReturn<T extends ContactPersonUpdateManyAndReturnArgs>(args: SelectSubset<T, ContactPersonUpdateManyAndReturnArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$ContactPersonPayload<ExtArgs>, T, "updateManyAndReturn", GlobalOmitOptions>>
+
+    /**
+     * Create or update one ContactPerson.
+     * @param {ContactPersonUpsertArgs} args - Arguments to update or create a ContactPerson.
+     * @example
+     * // Update or create a ContactPerson
+     * const contactPerson = await prisma.contactPerson.upsert({
+     *   create: {
+     *     // ... data to create a ContactPerson
+     *   },
+     *   update: {
+     *     // ... in case it already exists, update
+     *   },
+     *   where: {
+     *     // ... the filter for the ContactPerson we want to update
+     *   }
+     * })
+     */
+    upsert<T extends ContactPersonUpsertArgs>(args: SelectSubset<T, ContactPersonUpsertArgs<ExtArgs>>): Prisma__ContactPersonClient<$Result.GetResult<Prisma.$ContactPersonPayload<ExtArgs>, T, "upsert", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+
+    /**
+     * Count the number of ContactPeople.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {ContactPersonCountArgs} args - Arguments to filter ContactPeople to count.
+     * @example
+     * // Count the number of ContactPeople
+     * const count = await prisma.contactPerson.count({
+     *   where: {
+     *     // ... the filter for the ContactPeople we want to count
+     *   }
+     * })
+    **/
+    count<T extends ContactPersonCountArgs>(
+      args?: Subset<T, ContactPersonCountArgs>,
+    ): Prisma.PrismaPromise<
+      T extends $Utils.Record<'select', any>
+        ? T['select'] extends true
+          ? number
+          : GetScalarType<T['select'], ContactPersonCountAggregateOutputType>
+        : number
+    >
+
+    /**
+     * Allows you to perform aggregations operations on a ContactPerson.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {ContactPersonAggregateArgs} args - Select which aggregations you would like to apply and on what fields.
+     * @example
+     * // Ordered by age ascending
+     * // Where email contains prisma.io
+     * // Limited to the 10 users
+     * const aggregations = await prisma.user.aggregate({
+     *   _avg: {
+     *     age: true,
+     *   },
+     *   where: {
+     *     email: {
+     *       contains: "prisma.io",
+     *     },
+     *   },
+     *   orderBy: {
+     *     age: "asc",
+     *   },
+     *   take: 10,
+     * })
+    **/
+    aggregate<T extends ContactPersonAggregateArgs>(args: Subset<T, ContactPersonAggregateArgs>): Prisma.PrismaPromise<GetContactPersonAggregateType<T>>
+
+    /**
+     * Group by ContactPerson.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {ContactPersonGroupByArgs} args - Group by arguments.
+     * @example
+     * // Group by city, order by createdAt, get count
+     * const result = await prisma.user.groupBy({
+     *   by: ['city', 'createdAt'],
+     *   orderBy: {
+     *     createdAt: true
+     *   },
+     *   _count: {
+     *     _all: true
+     *   },
+     * })
+     * 
+    **/
+    groupBy<
+      T extends ContactPersonGroupByArgs,
+      HasSelectOrTake extends Or<
+        Extends<'skip', Keys<T>>,
+        Extends<'take', Keys<T>>
+      >,
+      OrderByArg extends True extends HasSelectOrTake
+        ? { orderBy: ContactPersonGroupByArgs['orderBy'] }
+        : { orderBy?: ContactPersonGroupByArgs['orderBy'] },
+      OrderFields extends ExcludeUnderscoreKeys<Keys<MaybeTupleToUnion<T['orderBy']>>>,
+      ByFields extends MaybeTupleToUnion<T['by']>,
+      ByValid extends Has<ByFields, OrderFields>,
+      HavingFields extends GetHavingFields<T['having']>,
+      HavingValid extends Has<ByFields, HavingFields>,
+      ByEmpty extends T['by'] extends never[] ? True : False,
+      InputErrors extends ByEmpty extends True
+      ? `Error: "by" must not be empty.`
+      : HavingValid extends False
+      ? {
+          [P in HavingFields]: P extends ByFields
+            ? never
+            : P extends string
+            ? `Error: Field "${P}" used in "having" needs to be provided in "by".`
+            : [
+                Error,
+                'Field ',
+                P,
+                ` in "having" needs to be provided in "by"`,
+              ]
+        }[HavingFields]
+      : 'take' extends Keys<T>
+      ? 'orderBy' extends Keys<T>
+        ? ByValid extends True
+          ? {}
+          : {
+              [P in OrderFields]: P extends ByFields
+                ? never
+                : `Error: Field "${P}" in "orderBy" needs to be provided in "by"`
+            }[OrderFields]
+        : 'Error: If you provide "take", you also need to provide "orderBy"'
+      : 'skip' extends Keys<T>
+      ? 'orderBy' extends Keys<T>
+        ? ByValid extends True
+          ? {}
+          : {
+              [P in OrderFields]: P extends ByFields
+                ? never
+                : `Error: Field "${P}" in "orderBy" needs to be provided in "by"`
+            }[OrderFields]
+        : 'Error: If you provide "skip", you also need to provide "orderBy"'
+      : ByValid extends True
+      ? {}
+      : {
+          [P in OrderFields]: P extends ByFields
+            ? never
+            : `Error: Field "${P}" in "orderBy" needs to be provided in "by"`
+        }[OrderFields]
+    >(args: SubsetIntersection<T, ContactPersonGroupByArgs, OrderByArg> & InputErrors): {} extends InputErrors ? GetContactPersonGroupByPayload<T> : Prisma.PrismaPromise<InputErrors>
+  /**
+   * Fields of the ContactPerson model
+   */
+  readonly fields: ContactPersonFieldRefs;
+  }
+
+  /**
+   * The delegate class that acts as a "Promise-like" for ContactPerson.
+   * Why is this prefixed with `Prisma__`?
+   * Because we want to prevent naming conflicts as mentioned in
+   * https://github.com/prisma/prisma-client-js/issues/707
+   */
+  export interface Prisma__ContactPersonClient<T, Null = never, ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs, GlobalOmitOptions = {}> extends Prisma.PrismaPromise<T> {
+    readonly [Symbol.toStringTag]: "PrismaPromise"
+    customer<T extends CustomerDefaultArgs<ExtArgs> = {}>(args?: Subset<T, CustomerDefaultArgs<ExtArgs>>): Prisma__CustomerClient<$Result.GetResult<Prisma.$CustomerPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | Null, Null, ExtArgs, GlobalOmitOptions>
+    projects<T extends ContactPerson$projectsArgs<ExtArgs> = {}>(args?: Subset<T, ContactPerson$projectsArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$ProjectPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
+    /**
+     * Attaches callbacks for the resolution and/or rejection of the Promise.
+     * @param onfulfilled The callback to execute when the Promise is resolved.
+     * @param onrejected The callback to execute when the Promise is rejected.
+     * @returns A Promise for the completion of which ever callback is executed.
+     */
+    then<TResult1 = T, TResult2 = never>(onfulfilled?: ((value: T) => TResult1 | PromiseLike<TResult1>) | undefined | null, onrejected?: ((reason: any) => TResult2 | PromiseLike<TResult2>) | undefined | null): $Utils.JsPromise<TResult1 | TResult2>
+    /**
+     * Attaches a callback for only the rejection of the Promise.
+     * @param onrejected The callback to execute when the Promise is rejected.
+     * @returns A Promise for the completion of the callback.
+     */
+    catch<TResult = never>(onrejected?: ((reason: any) => TResult | PromiseLike<TResult>) | undefined | null): $Utils.JsPromise<T | TResult>
+    /**
+     * Attaches a callback that is invoked when the Promise is settled (fulfilled or rejected). The
+     * resolved value cannot be modified from the callback.
+     * @param onfinally The callback to execute when the Promise is settled (fulfilled or rejected).
+     * @returns A Promise for the completion of the callback.
+     */
+    finally(onfinally?: (() => void) | undefined | null): $Utils.JsPromise<T>
+  }
+
+
+
+
+  /**
+   * Fields of the ContactPerson model
+   */
+  interface ContactPersonFieldRefs {
+    readonly id: FieldRef<"ContactPerson", 'Int'>
+    readonly name: FieldRef<"ContactPerson", 'String'>
+    readonly email: FieldRef<"ContactPerson", 'String'>
+    readonly phone: FieldRef<"ContactPerson", 'String'>
+    readonly customerId: FieldRef<"ContactPerson", 'Int'>
+  }
+    
+
+  // Custom InputTypes
+  /**
+   * ContactPerson findUnique
+   */
+  export type ContactPersonFindUniqueArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the ContactPerson
+     */
+    select?: ContactPersonSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the ContactPerson
+     */
+    omit?: ContactPersonOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: ContactPersonInclude<ExtArgs> | null
+    /**
+     * Filter, which ContactPerson to fetch.
+     */
+    where: ContactPersonWhereUniqueInput
+  }
+
+  /**
+   * ContactPerson findUniqueOrThrow
+   */
+  export type ContactPersonFindUniqueOrThrowArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the ContactPerson
+     */
+    select?: ContactPersonSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the ContactPerson
+     */
+    omit?: ContactPersonOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: ContactPersonInclude<ExtArgs> | null
+    /**
+     * Filter, which ContactPerson to fetch.
+     */
+    where: ContactPersonWhereUniqueInput
+  }
+
+  /**
+   * ContactPerson findFirst
+   */
+  export type ContactPersonFindFirstArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the ContactPerson
+     */
+    select?: ContactPersonSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the ContactPerson
+     */
+    omit?: ContactPersonOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: ContactPersonInclude<ExtArgs> | null
+    /**
+     * Filter, which ContactPerson to fetch.
+     */
+    where?: ContactPersonWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of ContactPeople to fetch.
+     */
+    orderBy?: ContactPersonOrderByWithRelationInput | ContactPersonOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the position for searching for ContactPeople.
+     */
+    cursor?: ContactPersonWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` ContactPeople from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` ContactPeople.
+     */
+    skip?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/distinct Distinct Docs}
+     * 
+     * Filter by unique combinations of ContactPeople.
+     */
+    distinct?: ContactPersonScalarFieldEnum | ContactPersonScalarFieldEnum[]
+  }
+
+  /**
+   * ContactPerson findFirstOrThrow
+   */
+  export type ContactPersonFindFirstOrThrowArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the ContactPerson
+     */
+    select?: ContactPersonSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the ContactPerson
+     */
+    omit?: ContactPersonOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: ContactPersonInclude<ExtArgs> | null
+    /**
+     * Filter, which ContactPerson to fetch.
+     */
+    where?: ContactPersonWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of ContactPeople to fetch.
+     */
+    orderBy?: ContactPersonOrderByWithRelationInput | ContactPersonOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the position for searching for ContactPeople.
+     */
+    cursor?: ContactPersonWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` ContactPeople from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` ContactPeople.
+     */
+    skip?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/distinct Distinct Docs}
+     * 
+     * Filter by unique combinations of ContactPeople.
+     */
+    distinct?: ContactPersonScalarFieldEnum | ContactPersonScalarFieldEnum[]
+  }
+
+  /**
+   * ContactPerson findMany
+   */
+  export type ContactPersonFindManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the ContactPerson
+     */
+    select?: ContactPersonSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the ContactPerson
+     */
+    omit?: ContactPersonOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: ContactPersonInclude<ExtArgs> | null
+    /**
+     * Filter, which ContactPeople to fetch.
+     */
+    where?: ContactPersonWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of ContactPeople to fetch.
+     */
+    orderBy?: ContactPersonOrderByWithRelationInput | ContactPersonOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the position for listing ContactPeople.
+     */
+    cursor?: ContactPersonWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` ContactPeople from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` ContactPeople.
+     */
+    skip?: number
+    distinct?: ContactPersonScalarFieldEnum | ContactPersonScalarFieldEnum[]
+  }
+
+  /**
+   * ContactPerson create
+   */
+  export type ContactPersonCreateArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the ContactPerson
+     */
+    select?: ContactPersonSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the ContactPerson
+     */
+    omit?: ContactPersonOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: ContactPersonInclude<ExtArgs> | null
+    /**
+     * The data needed to create a ContactPerson.
+     */
+    data: XOR<ContactPersonCreateInput, ContactPersonUncheckedCreateInput>
+  }
+
+  /**
+   * ContactPerson createMany
+   */
+  export type ContactPersonCreateManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * The data used to create many ContactPeople.
+     */
+    data: ContactPersonCreateManyInput | ContactPersonCreateManyInput[]
+    skipDuplicates?: boolean
+  }
+
+  /**
+   * ContactPerson createManyAndReturn
+   */
+  export type ContactPersonCreateManyAndReturnArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the ContactPerson
+     */
+    select?: ContactPersonSelectCreateManyAndReturn<ExtArgs> | null
+    /**
+     * Omit specific fields from the ContactPerson
+     */
+    omit?: ContactPersonOmit<ExtArgs> | null
+    /**
+     * The data used to create many ContactPeople.
+     */
+    data: ContactPersonCreateManyInput | ContactPersonCreateManyInput[]
+    skipDuplicates?: boolean
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: ContactPersonIncludeCreateManyAndReturn<ExtArgs> | null
+  }
+
+  /**
+   * ContactPerson update
+   */
+  export type ContactPersonUpdateArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the ContactPerson
+     */
+    select?: ContactPersonSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the ContactPerson
+     */
+    omit?: ContactPersonOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: ContactPersonInclude<ExtArgs> | null
+    /**
+     * The data needed to update a ContactPerson.
+     */
+    data: XOR<ContactPersonUpdateInput, ContactPersonUncheckedUpdateInput>
+    /**
+     * Choose, which ContactPerson to update.
+     */
+    where: ContactPersonWhereUniqueInput
+  }
+
+  /**
+   * ContactPerson updateMany
+   */
+  export type ContactPersonUpdateManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * The data used to update ContactPeople.
+     */
+    data: XOR<ContactPersonUpdateManyMutationInput, ContactPersonUncheckedUpdateManyInput>
+    /**
+     * Filter which ContactPeople to update
+     */
+    where?: ContactPersonWhereInput
+    /**
+     * Limit how many ContactPeople to update.
+     */
+    limit?: number
+  }
+
+  /**
+   * ContactPerson updateManyAndReturn
+   */
+  export type ContactPersonUpdateManyAndReturnArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the ContactPerson
+     */
+    select?: ContactPersonSelectUpdateManyAndReturn<ExtArgs> | null
+    /**
+     * Omit specific fields from the ContactPerson
+     */
+    omit?: ContactPersonOmit<ExtArgs> | null
+    /**
+     * The data used to update ContactPeople.
+     */
+    data: XOR<ContactPersonUpdateManyMutationInput, ContactPersonUncheckedUpdateManyInput>
+    /**
+     * Filter which ContactPeople to update
+     */
+    where?: ContactPersonWhereInput
+    /**
+     * Limit how many ContactPeople to update.
+     */
+    limit?: number
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: ContactPersonIncludeUpdateManyAndReturn<ExtArgs> | null
+  }
+
+  /**
+   * ContactPerson upsert
+   */
+  export type ContactPersonUpsertArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the ContactPerson
+     */
+    select?: ContactPersonSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the ContactPerson
+     */
+    omit?: ContactPersonOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: ContactPersonInclude<ExtArgs> | null
+    /**
+     * The filter to search for the ContactPerson to update in case it exists.
+     */
+    where: ContactPersonWhereUniqueInput
+    /**
+     * In case the ContactPerson found by the `where` argument doesn't exist, create a new ContactPerson with this data.
+     */
+    create: XOR<ContactPersonCreateInput, ContactPersonUncheckedCreateInput>
+    /**
+     * In case the ContactPerson was found with the provided `where` argument, update it with this data.
+     */
+    update: XOR<ContactPersonUpdateInput, ContactPersonUncheckedUpdateInput>
+  }
+
+  /**
+   * ContactPerson delete
+   */
+  export type ContactPersonDeleteArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the ContactPerson
+     */
+    select?: ContactPersonSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the ContactPerson
+     */
+    omit?: ContactPersonOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: ContactPersonInclude<ExtArgs> | null
+    /**
+     * Filter which ContactPerson to delete.
+     */
+    where: ContactPersonWhereUniqueInput
+  }
+
+  /**
+   * ContactPerson deleteMany
+   */
+  export type ContactPersonDeleteManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Filter which ContactPeople to delete
+     */
+    where?: ContactPersonWhereInput
+    /**
+     * Limit how many ContactPeople to delete.
+     */
+    limit?: number
+  }
+
+  /**
+   * ContactPerson.projects
+   */
+  export type ContactPerson$projectsArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the Project
+     */
+    select?: ProjectSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the Project
+     */
+    omit?: ProjectOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: ProjectInclude<ExtArgs> | null
+    where?: ProjectWhereInput
+    orderBy?: ProjectOrderByWithRelationInput | ProjectOrderByWithRelationInput[]
+    cursor?: ProjectWhereUniqueInput
+    take?: number
+    skip?: number
+    distinct?: ProjectScalarFieldEnum | ProjectScalarFieldEnum[]
+  }
+
+  /**
+   * ContactPerson without action
+   */
+  export type ContactPersonDefaultArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the ContactPerson
+     */
+    select?: ContactPersonSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the ContactPerson
+     */
+    omit?: ContactPersonOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: ContactPersonInclude<ExtArgs> | null
   }
 
 
@@ -11040,8 +12330,11 @@ export namespace Prisma {
     deadline: 'deadline',
     hourLeft: 'hourLeft',
     projectType: 'projectType',
+    totalCost: 'totalCost',
+    salesValue: 'salesValue',
     statusId: 'statusId',
     customerId: 'customerId',
+    contactPersonId: 'contactPersonId',
     createdAt: 'createdAt',
     updatedAt: 'updatedAt'
   };
@@ -11053,17 +12346,23 @@ export namespace Prisma {
     id: 'id',
     name: 'name',
     orderer: 'orderer',
-    contactName: 'contactName',
-    contactEmail: 'contactEmail',
-    contactPhone: 'contactPhone',
     poNumber: 'poNumber',
     hourlyRate: 'hourlyRate',
-    totalCost: 'totalCost',
-    salesValue: 'salesValue',
     partialInvoice: 'partialInvoice'
   };
 
   export type CustomerScalarFieldEnum = (typeof CustomerScalarFieldEnum)[keyof typeof CustomerScalarFieldEnum]
+
+
+  export const ContactPersonScalarFieldEnum: {
+    id: 'id',
+    name: 'name',
+    email: 'email',
+    phone: 'phone',
+    customerId: 'customerId'
+  };
+
+  export type ContactPersonScalarFieldEnum = (typeof ContactPersonScalarFieldEnum)[keyof typeof ContactPersonScalarFieldEnum]
 
 
   export const StatusScalarFieldEnum: {
@@ -11256,12 +12555,16 @@ export namespace Prisma {
     deadline?: DateTimeFilter<"Project"> | Date | string
     hourLeft?: FloatFilter<"Project"> | number
     projectType?: StringFilter<"Project"> | string
+    totalCost?: FloatFilter<"Project"> | number
+    salesValue?: FloatFilter<"Project"> | number
     statusId?: IntNullableFilter<"Project"> | number | null
     customerId?: IntNullableFilter<"Project"> | number | null
+    contactPersonId?: IntNullableFilter<"Project"> | number | null
     createdAt?: DateTimeFilter<"Project"> | Date | string
     updatedAt?: DateTimeFilter<"Project"> | Date | string
     status?: XOR<StatusNullableScalarRelationFilter, StatusWhereInput> | null
     customer?: XOR<CustomerNullableScalarRelationFilter, CustomerWhereInput> | null
+    contactPerson?: XOR<ContactPersonNullableScalarRelationFilter, ContactPersonWhereInput> | null
     timeReports?: TimeReportListRelationFilter
     tasks?: ProjectTaskListRelationFilter
     projectRoles?: ProjectRoleListRelationFilter
@@ -11275,12 +12578,16 @@ export namespace Prisma {
     deadline?: SortOrder
     hourLeft?: SortOrder
     projectType?: SortOrder
+    totalCost?: SortOrder
+    salesValue?: SortOrder
     statusId?: SortOrderInput | SortOrder
     customerId?: SortOrderInput | SortOrder
+    contactPersonId?: SortOrderInput | SortOrder
     createdAt?: SortOrder
     updatedAt?: SortOrder
     status?: StatusOrderByWithRelationInput
     customer?: CustomerOrderByWithRelationInput
+    contactPerson?: ContactPersonOrderByWithRelationInput
     timeReports?: TimeReportOrderByRelationAggregateInput
     tasks?: ProjectTaskOrderByRelationAggregateInput
     projectRoles?: ProjectRoleOrderByRelationAggregateInput
@@ -11297,12 +12604,16 @@ export namespace Prisma {
     deadline?: DateTimeFilter<"Project"> | Date | string
     hourLeft?: FloatFilter<"Project"> | number
     projectType?: StringFilter<"Project"> | string
+    totalCost?: FloatFilter<"Project"> | number
+    salesValue?: FloatFilter<"Project"> | number
     statusId?: IntNullableFilter<"Project"> | number | null
     customerId?: IntNullableFilter<"Project"> | number | null
+    contactPersonId?: IntNullableFilter<"Project"> | number | null
     createdAt?: DateTimeFilter<"Project"> | Date | string
     updatedAt?: DateTimeFilter<"Project"> | Date | string
     status?: XOR<StatusNullableScalarRelationFilter, StatusWhereInput> | null
     customer?: XOR<CustomerNullableScalarRelationFilter, CustomerWhereInput> | null
+    contactPerson?: XOR<ContactPersonNullableScalarRelationFilter, ContactPersonWhereInput> | null
     timeReports?: TimeReportListRelationFilter
     tasks?: ProjectTaskListRelationFilter
     projectRoles?: ProjectRoleListRelationFilter
@@ -11316,8 +12627,11 @@ export namespace Prisma {
     deadline?: SortOrder
     hourLeft?: SortOrder
     projectType?: SortOrder
+    totalCost?: SortOrder
+    salesValue?: SortOrder
     statusId?: SortOrderInput | SortOrder
     customerId?: SortOrderInput | SortOrder
+    contactPersonId?: SortOrderInput | SortOrder
     createdAt?: SortOrder
     updatedAt?: SortOrder
     _count?: ProjectCountOrderByAggregateInput
@@ -11338,8 +12652,11 @@ export namespace Prisma {
     deadline?: DateTimeWithAggregatesFilter<"Project"> | Date | string
     hourLeft?: FloatWithAggregatesFilter<"Project"> | number
     projectType?: StringWithAggregatesFilter<"Project"> | string
+    totalCost?: FloatWithAggregatesFilter<"Project"> | number
+    salesValue?: FloatWithAggregatesFilter<"Project"> | number
     statusId?: IntNullableWithAggregatesFilter<"Project"> | number | null
     customerId?: IntNullableWithAggregatesFilter<"Project"> | number | null
+    contactPersonId?: IntNullableWithAggregatesFilter<"Project"> | number | null
     createdAt?: DateTimeWithAggregatesFilter<"Project"> | Date | string
     updatedAt?: DateTimeWithAggregatesFilter<"Project"> | Date | string
   }
@@ -11351,14 +12668,10 @@ export namespace Prisma {
     id?: IntFilter<"Customer"> | number
     name?: StringFilter<"Customer"> | string
     orderer?: StringFilter<"Customer"> | string
-    contactName?: StringFilter<"Customer"> | string
-    contactEmail?: StringFilter<"Customer"> | string
-    contactPhone?: StringFilter<"Customer"> | string
     poNumber?: StringFilter<"Customer"> | string
     hourlyRate?: FloatFilter<"Customer"> | number
-    totalCost?: FloatFilter<"Customer"> | number
-    salesValue?: FloatFilter<"Customer"> | number
     partialInvoice?: BoolFilter<"Customer"> | boolean
+    contactPersons?: ContactPersonListRelationFilter
     projects?: ProjectListRelationFilter
   }
 
@@ -11366,14 +12679,10 @@ export namespace Prisma {
     id?: SortOrder
     name?: SortOrder
     orderer?: SortOrder
-    contactName?: SortOrder
-    contactEmail?: SortOrder
-    contactPhone?: SortOrder
     poNumber?: SortOrder
     hourlyRate?: SortOrder
-    totalCost?: SortOrder
-    salesValue?: SortOrder
     partialInvoice?: SortOrder
+    contactPersons?: ContactPersonOrderByRelationAggregateInput
     projects?: ProjectOrderByRelationAggregateInput
   }
 
@@ -11384,14 +12693,10 @@ export namespace Prisma {
     NOT?: CustomerWhereInput | CustomerWhereInput[]
     name?: StringFilter<"Customer"> | string
     orderer?: StringFilter<"Customer"> | string
-    contactName?: StringFilter<"Customer"> | string
-    contactEmail?: StringFilter<"Customer"> | string
-    contactPhone?: StringFilter<"Customer"> | string
     poNumber?: StringFilter<"Customer"> | string
     hourlyRate?: FloatFilter<"Customer"> | number
-    totalCost?: FloatFilter<"Customer"> | number
-    salesValue?: FloatFilter<"Customer"> | number
     partialInvoice?: BoolFilter<"Customer"> | boolean
+    contactPersons?: ContactPersonListRelationFilter
     projects?: ProjectListRelationFilter
   }, "id">
 
@@ -11399,13 +12704,8 @@ export namespace Prisma {
     id?: SortOrder
     name?: SortOrder
     orderer?: SortOrder
-    contactName?: SortOrder
-    contactEmail?: SortOrder
-    contactPhone?: SortOrder
     poNumber?: SortOrder
     hourlyRate?: SortOrder
-    totalCost?: SortOrder
-    salesValue?: SortOrder
     partialInvoice?: SortOrder
     _count?: CustomerCountOrderByAggregateInput
     _avg?: CustomerAvgOrderByAggregateInput
@@ -11421,14 +12721,69 @@ export namespace Prisma {
     id?: IntWithAggregatesFilter<"Customer"> | number
     name?: StringWithAggregatesFilter<"Customer"> | string
     orderer?: StringWithAggregatesFilter<"Customer"> | string
-    contactName?: StringWithAggregatesFilter<"Customer"> | string
-    contactEmail?: StringWithAggregatesFilter<"Customer"> | string
-    contactPhone?: StringWithAggregatesFilter<"Customer"> | string
     poNumber?: StringWithAggregatesFilter<"Customer"> | string
     hourlyRate?: FloatWithAggregatesFilter<"Customer"> | number
-    totalCost?: FloatWithAggregatesFilter<"Customer"> | number
-    salesValue?: FloatWithAggregatesFilter<"Customer"> | number
     partialInvoice?: BoolWithAggregatesFilter<"Customer"> | boolean
+  }
+
+  export type ContactPersonWhereInput = {
+    AND?: ContactPersonWhereInput | ContactPersonWhereInput[]
+    OR?: ContactPersonWhereInput[]
+    NOT?: ContactPersonWhereInput | ContactPersonWhereInput[]
+    id?: IntFilter<"ContactPerson"> | number
+    name?: StringFilter<"ContactPerson"> | string
+    email?: StringFilter<"ContactPerson"> | string
+    phone?: StringFilter<"ContactPerson"> | string
+    customerId?: IntFilter<"ContactPerson"> | number
+    customer?: XOR<CustomerScalarRelationFilter, CustomerWhereInput>
+    projects?: ProjectListRelationFilter
+  }
+
+  export type ContactPersonOrderByWithRelationInput = {
+    id?: SortOrder
+    name?: SortOrder
+    email?: SortOrder
+    phone?: SortOrder
+    customerId?: SortOrder
+    customer?: CustomerOrderByWithRelationInput
+    projects?: ProjectOrderByRelationAggregateInput
+  }
+
+  export type ContactPersonWhereUniqueInput = Prisma.AtLeast<{
+    id?: number
+    AND?: ContactPersonWhereInput | ContactPersonWhereInput[]
+    OR?: ContactPersonWhereInput[]
+    NOT?: ContactPersonWhereInput | ContactPersonWhereInput[]
+    name?: StringFilter<"ContactPerson"> | string
+    email?: StringFilter<"ContactPerson"> | string
+    phone?: StringFilter<"ContactPerson"> | string
+    customerId?: IntFilter<"ContactPerson"> | number
+    customer?: XOR<CustomerScalarRelationFilter, CustomerWhereInput>
+    projects?: ProjectListRelationFilter
+  }, "id">
+
+  export type ContactPersonOrderByWithAggregationInput = {
+    id?: SortOrder
+    name?: SortOrder
+    email?: SortOrder
+    phone?: SortOrder
+    customerId?: SortOrder
+    _count?: ContactPersonCountOrderByAggregateInput
+    _avg?: ContactPersonAvgOrderByAggregateInput
+    _max?: ContactPersonMaxOrderByAggregateInput
+    _min?: ContactPersonMinOrderByAggregateInput
+    _sum?: ContactPersonSumOrderByAggregateInput
+  }
+
+  export type ContactPersonScalarWhereWithAggregatesInput = {
+    AND?: ContactPersonScalarWhereWithAggregatesInput | ContactPersonScalarWhereWithAggregatesInput[]
+    OR?: ContactPersonScalarWhereWithAggregatesInput[]
+    NOT?: ContactPersonScalarWhereWithAggregatesInput | ContactPersonScalarWhereWithAggregatesInput[]
+    id?: IntWithAggregatesFilter<"ContactPerson"> | number
+    name?: StringWithAggregatesFilter<"ContactPerson"> | string
+    email?: StringWithAggregatesFilter<"ContactPerson"> | string
+    phone?: StringWithAggregatesFilter<"ContactPerson"> | string
+    customerId?: IntWithAggregatesFilter<"ContactPerson"> | number
   }
 
   export type StatusWhereInput = {
@@ -11818,10 +13173,13 @@ export namespace Prisma {
     deadline: Date | string
     hourLeft: number
     projectType: string
+    totalCost?: number
+    salesValue?: number
     createdAt?: Date | string
     updatedAt?: Date | string
     status?: StatusCreateNestedOneWithoutProjectsInput
     customer?: CustomerCreateNestedOneWithoutProjectsInput
+    contactPerson?: ContactPersonCreateNestedOneWithoutProjectsInput
     timeReports?: TimeReportCreateNestedManyWithoutProjectInput
     tasks?: ProjectTaskCreateNestedManyWithoutProjectInput
     projectRoles?: ProjectRoleCreateNestedManyWithoutProjectInput
@@ -11835,8 +13193,11 @@ export namespace Prisma {
     deadline: Date | string
     hourLeft: number
     projectType: string
+    totalCost?: number
+    salesValue?: number
     statusId?: number | null
     customerId?: number | null
+    contactPersonId?: number | null
     createdAt?: Date | string
     updatedAt?: Date | string
     timeReports?: TimeReportUncheckedCreateNestedManyWithoutProjectInput
@@ -11851,10 +13212,13 @@ export namespace Prisma {
     deadline?: DateTimeFieldUpdateOperationsInput | Date | string
     hourLeft?: FloatFieldUpdateOperationsInput | number
     projectType?: StringFieldUpdateOperationsInput | string
+    totalCost?: FloatFieldUpdateOperationsInput | number
+    salesValue?: FloatFieldUpdateOperationsInput | number
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
     status?: StatusUpdateOneWithoutProjectsNestedInput
     customer?: CustomerUpdateOneWithoutProjectsNestedInput
+    contactPerson?: ContactPersonUpdateOneWithoutProjectsNestedInput
     timeReports?: TimeReportUpdateManyWithoutProjectNestedInput
     tasks?: ProjectTaskUpdateManyWithoutProjectNestedInput
     projectRoles?: ProjectRoleUpdateManyWithoutProjectNestedInput
@@ -11868,8 +13232,11 @@ export namespace Prisma {
     deadline?: DateTimeFieldUpdateOperationsInput | Date | string
     hourLeft?: FloatFieldUpdateOperationsInput | number
     projectType?: StringFieldUpdateOperationsInput | string
+    totalCost?: FloatFieldUpdateOperationsInput | number
+    salesValue?: FloatFieldUpdateOperationsInput | number
     statusId?: NullableIntFieldUpdateOperationsInput | number | null
     customerId?: NullableIntFieldUpdateOperationsInput | number | null
+    contactPersonId?: NullableIntFieldUpdateOperationsInput | number | null
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
     timeReports?: TimeReportUncheckedUpdateManyWithoutProjectNestedInput
@@ -11885,8 +13252,11 @@ export namespace Prisma {
     deadline: Date | string
     hourLeft: number
     projectType: string
+    totalCost?: number
+    salesValue?: number
     statusId?: number | null
     customerId?: number | null
+    contactPersonId?: number | null
     createdAt?: Date | string
     updatedAt?: Date | string
   }
@@ -11898,6 +13268,8 @@ export namespace Prisma {
     deadline?: DateTimeFieldUpdateOperationsInput | Date | string
     hourLeft?: FloatFieldUpdateOperationsInput | number
     projectType?: StringFieldUpdateOperationsInput | string
+    totalCost?: FloatFieldUpdateOperationsInput | number
+    salesValue?: FloatFieldUpdateOperationsInput | number
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
   }
@@ -11910,8 +13282,11 @@ export namespace Prisma {
     deadline?: DateTimeFieldUpdateOperationsInput | Date | string
     hourLeft?: FloatFieldUpdateOperationsInput | number
     projectType?: StringFieldUpdateOperationsInput | string
+    totalCost?: FloatFieldUpdateOperationsInput | number
+    salesValue?: FloatFieldUpdateOperationsInput | number
     statusId?: NullableIntFieldUpdateOperationsInput | number | null
     customerId?: NullableIntFieldUpdateOperationsInput | number | null
+    contactPersonId?: NullableIntFieldUpdateOperationsInput | number | null
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
   }
@@ -11919,14 +13294,10 @@ export namespace Prisma {
   export type CustomerCreateInput = {
     name: string
     orderer: string
-    contactName: string
-    contactEmail: string
-    contactPhone: string
     poNumber: string
     hourlyRate: number
-    totalCost: number
-    salesValue: number
     partialInvoice: boolean
+    contactPersons?: ContactPersonCreateNestedManyWithoutCustomerInput
     projects?: ProjectCreateNestedManyWithoutCustomerInput
   }
 
@@ -11934,28 +13305,20 @@ export namespace Prisma {
     id?: number
     name: string
     orderer: string
-    contactName: string
-    contactEmail: string
-    contactPhone: string
     poNumber: string
     hourlyRate: number
-    totalCost: number
-    salesValue: number
     partialInvoice: boolean
+    contactPersons?: ContactPersonUncheckedCreateNestedManyWithoutCustomerInput
     projects?: ProjectUncheckedCreateNestedManyWithoutCustomerInput
   }
 
   export type CustomerUpdateInput = {
     name?: StringFieldUpdateOperationsInput | string
     orderer?: StringFieldUpdateOperationsInput | string
-    contactName?: StringFieldUpdateOperationsInput | string
-    contactEmail?: StringFieldUpdateOperationsInput | string
-    contactPhone?: StringFieldUpdateOperationsInput | string
     poNumber?: StringFieldUpdateOperationsInput | string
     hourlyRate?: FloatFieldUpdateOperationsInput | number
-    totalCost?: FloatFieldUpdateOperationsInput | number
-    salesValue?: FloatFieldUpdateOperationsInput | number
     partialInvoice?: BoolFieldUpdateOperationsInput | boolean
+    contactPersons?: ContactPersonUpdateManyWithoutCustomerNestedInput
     projects?: ProjectUpdateManyWithoutCustomerNestedInput
   }
 
@@ -11963,14 +13326,10 @@ export namespace Prisma {
     id?: IntFieldUpdateOperationsInput | number
     name?: StringFieldUpdateOperationsInput | string
     orderer?: StringFieldUpdateOperationsInput | string
-    contactName?: StringFieldUpdateOperationsInput | string
-    contactEmail?: StringFieldUpdateOperationsInput | string
-    contactPhone?: StringFieldUpdateOperationsInput | string
     poNumber?: StringFieldUpdateOperationsInput | string
     hourlyRate?: FloatFieldUpdateOperationsInput | number
-    totalCost?: FloatFieldUpdateOperationsInput | number
-    salesValue?: FloatFieldUpdateOperationsInput | number
     partialInvoice?: BoolFieldUpdateOperationsInput | boolean
+    contactPersons?: ContactPersonUncheckedUpdateManyWithoutCustomerNestedInput
     projects?: ProjectUncheckedUpdateManyWithoutCustomerNestedInput
   }
 
@@ -11978,26 +13337,16 @@ export namespace Prisma {
     id?: number
     name: string
     orderer: string
-    contactName: string
-    contactEmail: string
-    contactPhone: string
     poNumber: string
     hourlyRate: number
-    totalCost: number
-    salesValue: number
     partialInvoice: boolean
   }
 
   export type CustomerUpdateManyMutationInput = {
     name?: StringFieldUpdateOperationsInput | string
     orderer?: StringFieldUpdateOperationsInput | string
-    contactName?: StringFieldUpdateOperationsInput | string
-    contactEmail?: StringFieldUpdateOperationsInput | string
-    contactPhone?: StringFieldUpdateOperationsInput | string
     poNumber?: StringFieldUpdateOperationsInput | string
     hourlyRate?: FloatFieldUpdateOperationsInput | number
-    totalCost?: FloatFieldUpdateOperationsInput | number
-    salesValue?: FloatFieldUpdateOperationsInput | number
     partialInvoice?: BoolFieldUpdateOperationsInput | boolean
   }
 
@@ -12005,14 +13354,65 @@ export namespace Prisma {
     id?: IntFieldUpdateOperationsInput | number
     name?: StringFieldUpdateOperationsInput | string
     orderer?: StringFieldUpdateOperationsInput | string
-    contactName?: StringFieldUpdateOperationsInput | string
-    contactEmail?: StringFieldUpdateOperationsInput | string
-    contactPhone?: StringFieldUpdateOperationsInput | string
     poNumber?: StringFieldUpdateOperationsInput | string
     hourlyRate?: FloatFieldUpdateOperationsInput | number
-    totalCost?: FloatFieldUpdateOperationsInput | number
-    salesValue?: FloatFieldUpdateOperationsInput | number
     partialInvoice?: BoolFieldUpdateOperationsInput | boolean
+  }
+
+  export type ContactPersonCreateInput = {
+    name: string
+    email: string
+    phone: string
+    customer: CustomerCreateNestedOneWithoutContactPersonsInput
+    projects?: ProjectCreateNestedManyWithoutContactPersonInput
+  }
+
+  export type ContactPersonUncheckedCreateInput = {
+    id?: number
+    name: string
+    email: string
+    phone: string
+    customerId: number
+    projects?: ProjectUncheckedCreateNestedManyWithoutContactPersonInput
+  }
+
+  export type ContactPersonUpdateInput = {
+    name?: StringFieldUpdateOperationsInput | string
+    email?: StringFieldUpdateOperationsInput | string
+    phone?: StringFieldUpdateOperationsInput | string
+    customer?: CustomerUpdateOneRequiredWithoutContactPersonsNestedInput
+    projects?: ProjectUpdateManyWithoutContactPersonNestedInput
+  }
+
+  export type ContactPersonUncheckedUpdateInput = {
+    id?: IntFieldUpdateOperationsInput | number
+    name?: StringFieldUpdateOperationsInput | string
+    email?: StringFieldUpdateOperationsInput | string
+    phone?: StringFieldUpdateOperationsInput | string
+    customerId?: IntFieldUpdateOperationsInput | number
+    projects?: ProjectUncheckedUpdateManyWithoutContactPersonNestedInput
+  }
+
+  export type ContactPersonCreateManyInput = {
+    id?: number
+    name: string
+    email: string
+    phone: string
+    customerId: number
+  }
+
+  export type ContactPersonUpdateManyMutationInput = {
+    name?: StringFieldUpdateOperationsInput | string
+    email?: StringFieldUpdateOperationsInput | string
+    phone?: StringFieldUpdateOperationsInput | string
+  }
+
+  export type ContactPersonUncheckedUpdateManyInput = {
+    id?: IntFieldUpdateOperationsInput | number
+    name?: StringFieldUpdateOperationsInput | string
+    email?: StringFieldUpdateOperationsInput | string
+    phone?: StringFieldUpdateOperationsInput | string
+    customerId?: IntFieldUpdateOperationsInput | number
   }
 
   export type StatusCreateInput = {
@@ -12443,6 +13843,11 @@ export namespace Prisma {
     isNot?: CustomerWhereInput | null
   }
 
+  export type ContactPersonNullableScalarRelationFilter = {
+    is?: ContactPersonWhereInput | null
+    isNot?: ContactPersonWhereInput | null
+  }
+
   export type TimeReportListRelationFilter = {
     every?: TimeReportWhereInput
     some?: TimeReportWhereInput
@@ -12486,8 +13891,11 @@ export namespace Prisma {
     deadline?: SortOrder
     hourLeft?: SortOrder
     projectType?: SortOrder
+    totalCost?: SortOrder
+    salesValue?: SortOrder
     statusId?: SortOrder
     customerId?: SortOrder
+    contactPersonId?: SortOrder
     createdAt?: SortOrder
     updatedAt?: SortOrder
   }
@@ -12495,8 +13903,11 @@ export namespace Prisma {
   export type ProjectAvgOrderByAggregateInput = {
     id?: SortOrder
     hourLeft?: SortOrder
+    totalCost?: SortOrder
+    salesValue?: SortOrder
     statusId?: SortOrder
     customerId?: SortOrder
+    contactPersonId?: SortOrder
   }
 
   export type ProjectMaxOrderByAggregateInput = {
@@ -12507,8 +13918,11 @@ export namespace Prisma {
     deadline?: SortOrder
     hourLeft?: SortOrder
     projectType?: SortOrder
+    totalCost?: SortOrder
+    salesValue?: SortOrder
     statusId?: SortOrder
     customerId?: SortOrder
+    contactPersonId?: SortOrder
     createdAt?: SortOrder
     updatedAt?: SortOrder
   }
@@ -12521,8 +13935,11 @@ export namespace Prisma {
     deadline?: SortOrder
     hourLeft?: SortOrder
     projectType?: SortOrder
+    totalCost?: SortOrder
+    salesValue?: SortOrder
     statusId?: SortOrder
     customerId?: SortOrder
+    contactPersonId?: SortOrder
     createdAt?: SortOrder
     updatedAt?: SortOrder
   }
@@ -12530,8 +13947,11 @@ export namespace Prisma {
   export type ProjectSumOrderByAggregateInput = {
     id?: SortOrder
     hourLeft?: SortOrder
+    totalCost?: SortOrder
+    salesValue?: SortOrder
     statusId?: SortOrder
     customerId?: SortOrder
+    contactPersonId?: SortOrder
   }
 
   export type IntWithAggregatesFilter<$PrismaModel = never> = {
@@ -12619,10 +14039,20 @@ export namespace Prisma {
     not?: NestedBoolFilter<$PrismaModel> | boolean
   }
 
+  export type ContactPersonListRelationFilter = {
+    every?: ContactPersonWhereInput
+    some?: ContactPersonWhereInput
+    none?: ContactPersonWhereInput
+  }
+
   export type ProjectListRelationFilter = {
     every?: ProjectWhereInput
     some?: ProjectWhereInput
     none?: ProjectWhereInput
+  }
+
+  export type ContactPersonOrderByRelationAggregateInput = {
+    _count?: SortOrder
   }
 
   export type ProjectOrderByRelationAggregateInput = {
@@ -12633,34 +14063,22 @@ export namespace Prisma {
     id?: SortOrder
     name?: SortOrder
     orderer?: SortOrder
-    contactName?: SortOrder
-    contactEmail?: SortOrder
-    contactPhone?: SortOrder
     poNumber?: SortOrder
     hourlyRate?: SortOrder
-    totalCost?: SortOrder
-    salesValue?: SortOrder
     partialInvoice?: SortOrder
   }
 
   export type CustomerAvgOrderByAggregateInput = {
     id?: SortOrder
     hourlyRate?: SortOrder
-    totalCost?: SortOrder
-    salesValue?: SortOrder
   }
 
   export type CustomerMaxOrderByAggregateInput = {
     id?: SortOrder
     name?: SortOrder
     orderer?: SortOrder
-    contactName?: SortOrder
-    contactEmail?: SortOrder
-    contactPhone?: SortOrder
     poNumber?: SortOrder
     hourlyRate?: SortOrder
-    totalCost?: SortOrder
-    salesValue?: SortOrder
     partialInvoice?: SortOrder
   }
 
@@ -12668,21 +14086,14 @@ export namespace Prisma {
     id?: SortOrder
     name?: SortOrder
     orderer?: SortOrder
-    contactName?: SortOrder
-    contactEmail?: SortOrder
-    contactPhone?: SortOrder
     poNumber?: SortOrder
     hourlyRate?: SortOrder
-    totalCost?: SortOrder
-    salesValue?: SortOrder
     partialInvoice?: SortOrder
   }
 
   export type CustomerSumOrderByAggregateInput = {
     id?: SortOrder
     hourlyRate?: SortOrder
-    totalCost?: SortOrder
-    salesValue?: SortOrder
   }
 
   export type BoolWithAggregatesFilter<$PrismaModel = never> = {
@@ -12691,6 +14102,45 @@ export namespace Prisma {
     _count?: NestedIntFilter<$PrismaModel>
     _min?: NestedBoolFilter<$PrismaModel>
     _max?: NestedBoolFilter<$PrismaModel>
+  }
+
+  export type CustomerScalarRelationFilter = {
+    is?: CustomerWhereInput
+    isNot?: CustomerWhereInput
+  }
+
+  export type ContactPersonCountOrderByAggregateInput = {
+    id?: SortOrder
+    name?: SortOrder
+    email?: SortOrder
+    phone?: SortOrder
+    customerId?: SortOrder
+  }
+
+  export type ContactPersonAvgOrderByAggregateInput = {
+    id?: SortOrder
+    customerId?: SortOrder
+  }
+
+  export type ContactPersonMaxOrderByAggregateInput = {
+    id?: SortOrder
+    name?: SortOrder
+    email?: SortOrder
+    phone?: SortOrder
+    customerId?: SortOrder
+  }
+
+  export type ContactPersonMinOrderByAggregateInput = {
+    id?: SortOrder
+    name?: SortOrder
+    email?: SortOrder
+    phone?: SortOrder
+    customerId?: SortOrder
+  }
+
+  export type ContactPersonSumOrderByAggregateInput = {
+    id?: SortOrder
+    customerId?: SortOrder
   }
 
   export type StatusCountOrderByAggregateInput = {
@@ -13022,6 +14472,12 @@ export namespace Prisma {
     connect?: CustomerWhereUniqueInput
   }
 
+  export type ContactPersonCreateNestedOneWithoutProjectsInput = {
+    create?: XOR<ContactPersonCreateWithoutProjectsInput, ContactPersonUncheckedCreateWithoutProjectsInput>
+    connectOrCreate?: ContactPersonCreateOrConnectWithoutProjectsInput
+    connect?: ContactPersonWhereUniqueInput
+  }
+
   export type TimeReportCreateNestedManyWithoutProjectInput = {
     create?: XOR<TimeReportCreateWithoutProjectInput, TimeReportUncheckedCreateWithoutProjectInput> | TimeReportCreateWithoutProjectInput[] | TimeReportUncheckedCreateWithoutProjectInput[]
     connectOrCreate?: TimeReportCreateOrConnectWithoutProjectInput | TimeReportCreateOrConnectWithoutProjectInput[]
@@ -13098,6 +14554,16 @@ export namespace Prisma {
     delete?: CustomerWhereInput | boolean
     connect?: CustomerWhereUniqueInput
     update?: XOR<XOR<CustomerUpdateToOneWithWhereWithoutProjectsInput, CustomerUpdateWithoutProjectsInput>, CustomerUncheckedUpdateWithoutProjectsInput>
+  }
+
+  export type ContactPersonUpdateOneWithoutProjectsNestedInput = {
+    create?: XOR<ContactPersonCreateWithoutProjectsInput, ContactPersonUncheckedCreateWithoutProjectsInput>
+    connectOrCreate?: ContactPersonCreateOrConnectWithoutProjectsInput
+    upsert?: ContactPersonUpsertWithoutProjectsInput
+    disconnect?: ContactPersonWhereInput | boolean
+    delete?: ContactPersonWhereInput | boolean
+    connect?: ContactPersonWhereUniqueInput
+    update?: XOR<XOR<ContactPersonUpdateToOneWithWhereWithoutProjectsInput, ContactPersonUpdateWithoutProjectsInput>, ContactPersonUncheckedUpdateWithoutProjectsInput>
   }
 
   export type TimeReportUpdateManyWithoutProjectNestedInput = {
@@ -13200,11 +14666,25 @@ export namespace Prisma {
     deleteMany?: ProjectRoleScalarWhereInput | ProjectRoleScalarWhereInput[]
   }
 
+  export type ContactPersonCreateNestedManyWithoutCustomerInput = {
+    create?: XOR<ContactPersonCreateWithoutCustomerInput, ContactPersonUncheckedCreateWithoutCustomerInput> | ContactPersonCreateWithoutCustomerInput[] | ContactPersonUncheckedCreateWithoutCustomerInput[]
+    connectOrCreate?: ContactPersonCreateOrConnectWithoutCustomerInput | ContactPersonCreateOrConnectWithoutCustomerInput[]
+    createMany?: ContactPersonCreateManyCustomerInputEnvelope
+    connect?: ContactPersonWhereUniqueInput | ContactPersonWhereUniqueInput[]
+  }
+
   export type ProjectCreateNestedManyWithoutCustomerInput = {
     create?: XOR<ProjectCreateWithoutCustomerInput, ProjectUncheckedCreateWithoutCustomerInput> | ProjectCreateWithoutCustomerInput[] | ProjectUncheckedCreateWithoutCustomerInput[]
     connectOrCreate?: ProjectCreateOrConnectWithoutCustomerInput | ProjectCreateOrConnectWithoutCustomerInput[]
     createMany?: ProjectCreateManyCustomerInputEnvelope
     connect?: ProjectWhereUniqueInput | ProjectWhereUniqueInput[]
+  }
+
+  export type ContactPersonUncheckedCreateNestedManyWithoutCustomerInput = {
+    create?: XOR<ContactPersonCreateWithoutCustomerInput, ContactPersonUncheckedCreateWithoutCustomerInput> | ContactPersonCreateWithoutCustomerInput[] | ContactPersonUncheckedCreateWithoutCustomerInput[]
+    connectOrCreate?: ContactPersonCreateOrConnectWithoutCustomerInput | ContactPersonCreateOrConnectWithoutCustomerInput[]
+    createMany?: ContactPersonCreateManyCustomerInputEnvelope
+    connect?: ContactPersonWhereUniqueInput | ContactPersonWhereUniqueInput[]
   }
 
   export type ProjectUncheckedCreateNestedManyWithoutCustomerInput = {
@@ -13216,6 +14696,20 @@ export namespace Prisma {
 
   export type BoolFieldUpdateOperationsInput = {
     set?: boolean
+  }
+
+  export type ContactPersonUpdateManyWithoutCustomerNestedInput = {
+    create?: XOR<ContactPersonCreateWithoutCustomerInput, ContactPersonUncheckedCreateWithoutCustomerInput> | ContactPersonCreateWithoutCustomerInput[] | ContactPersonUncheckedCreateWithoutCustomerInput[]
+    connectOrCreate?: ContactPersonCreateOrConnectWithoutCustomerInput | ContactPersonCreateOrConnectWithoutCustomerInput[]
+    upsert?: ContactPersonUpsertWithWhereUniqueWithoutCustomerInput | ContactPersonUpsertWithWhereUniqueWithoutCustomerInput[]
+    createMany?: ContactPersonCreateManyCustomerInputEnvelope
+    set?: ContactPersonWhereUniqueInput | ContactPersonWhereUniqueInput[]
+    disconnect?: ContactPersonWhereUniqueInput | ContactPersonWhereUniqueInput[]
+    delete?: ContactPersonWhereUniqueInput | ContactPersonWhereUniqueInput[]
+    connect?: ContactPersonWhereUniqueInput | ContactPersonWhereUniqueInput[]
+    update?: ContactPersonUpdateWithWhereUniqueWithoutCustomerInput | ContactPersonUpdateWithWhereUniqueWithoutCustomerInput[]
+    updateMany?: ContactPersonUpdateManyWithWhereWithoutCustomerInput | ContactPersonUpdateManyWithWhereWithoutCustomerInput[]
+    deleteMany?: ContactPersonScalarWhereInput | ContactPersonScalarWhereInput[]
   }
 
   export type ProjectUpdateManyWithoutCustomerNestedInput = {
@@ -13232,6 +14726,20 @@ export namespace Prisma {
     deleteMany?: ProjectScalarWhereInput | ProjectScalarWhereInput[]
   }
 
+  export type ContactPersonUncheckedUpdateManyWithoutCustomerNestedInput = {
+    create?: XOR<ContactPersonCreateWithoutCustomerInput, ContactPersonUncheckedCreateWithoutCustomerInput> | ContactPersonCreateWithoutCustomerInput[] | ContactPersonUncheckedCreateWithoutCustomerInput[]
+    connectOrCreate?: ContactPersonCreateOrConnectWithoutCustomerInput | ContactPersonCreateOrConnectWithoutCustomerInput[]
+    upsert?: ContactPersonUpsertWithWhereUniqueWithoutCustomerInput | ContactPersonUpsertWithWhereUniqueWithoutCustomerInput[]
+    createMany?: ContactPersonCreateManyCustomerInputEnvelope
+    set?: ContactPersonWhereUniqueInput | ContactPersonWhereUniqueInput[]
+    disconnect?: ContactPersonWhereUniqueInput | ContactPersonWhereUniqueInput[]
+    delete?: ContactPersonWhereUniqueInput | ContactPersonWhereUniqueInput[]
+    connect?: ContactPersonWhereUniqueInput | ContactPersonWhereUniqueInput[]
+    update?: ContactPersonUpdateWithWhereUniqueWithoutCustomerInput | ContactPersonUpdateWithWhereUniqueWithoutCustomerInput[]
+    updateMany?: ContactPersonUpdateManyWithWhereWithoutCustomerInput | ContactPersonUpdateManyWithWhereWithoutCustomerInput[]
+    deleteMany?: ContactPersonScalarWhereInput | ContactPersonScalarWhereInput[]
+  }
+
   export type ProjectUncheckedUpdateManyWithoutCustomerNestedInput = {
     create?: XOR<ProjectCreateWithoutCustomerInput, ProjectUncheckedCreateWithoutCustomerInput> | ProjectCreateWithoutCustomerInput[] | ProjectUncheckedCreateWithoutCustomerInput[]
     connectOrCreate?: ProjectCreateOrConnectWithoutCustomerInput | ProjectCreateOrConnectWithoutCustomerInput[]
@@ -13243,6 +14751,62 @@ export namespace Prisma {
     connect?: ProjectWhereUniqueInput | ProjectWhereUniqueInput[]
     update?: ProjectUpdateWithWhereUniqueWithoutCustomerInput | ProjectUpdateWithWhereUniqueWithoutCustomerInput[]
     updateMany?: ProjectUpdateManyWithWhereWithoutCustomerInput | ProjectUpdateManyWithWhereWithoutCustomerInput[]
+    deleteMany?: ProjectScalarWhereInput | ProjectScalarWhereInput[]
+  }
+
+  export type CustomerCreateNestedOneWithoutContactPersonsInput = {
+    create?: XOR<CustomerCreateWithoutContactPersonsInput, CustomerUncheckedCreateWithoutContactPersonsInput>
+    connectOrCreate?: CustomerCreateOrConnectWithoutContactPersonsInput
+    connect?: CustomerWhereUniqueInput
+  }
+
+  export type ProjectCreateNestedManyWithoutContactPersonInput = {
+    create?: XOR<ProjectCreateWithoutContactPersonInput, ProjectUncheckedCreateWithoutContactPersonInput> | ProjectCreateWithoutContactPersonInput[] | ProjectUncheckedCreateWithoutContactPersonInput[]
+    connectOrCreate?: ProjectCreateOrConnectWithoutContactPersonInput | ProjectCreateOrConnectWithoutContactPersonInput[]
+    createMany?: ProjectCreateManyContactPersonInputEnvelope
+    connect?: ProjectWhereUniqueInput | ProjectWhereUniqueInput[]
+  }
+
+  export type ProjectUncheckedCreateNestedManyWithoutContactPersonInput = {
+    create?: XOR<ProjectCreateWithoutContactPersonInput, ProjectUncheckedCreateWithoutContactPersonInput> | ProjectCreateWithoutContactPersonInput[] | ProjectUncheckedCreateWithoutContactPersonInput[]
+    connectOrCreate?: ProjectCreateOrConnectWithoutContactPersonInput | ProjectCreateOrConnectWithoutContactPersonInput[]
+    createMany?: ProjectCreateManyContactPersonInputEnvelope
+    connect?: ProjectWhereUniqueInput | ProjectWhereUniqueInput[]
+  }
+
+  export type CustomerUpdateOneRequiredWithoutContactPersonsNestedInput = {
+    create?: XOR<CustomerCreateWithoutContactPersonsInput, CustomerUncheckedCreateWithoutContactPersonsInput>
+    connectOrCreate?: CustomerCreateOrConnectWithoutContactPersonsInput
+    upsert?: CustomerUpsertWithoutContactPersonsInput
+    connect?: CustomerWhereUniqueInput
+    update?: XOR<XOR<CustomerUpdateToOneWithWhereWithoutContactPersonsInput, CustomerUpdateWithoutContactPersonsInput>, CustomerUncheckedUpdateWithoutContactPersonsInput>
+  }
+
+  export type ProjectUpdateManyWithoutContactPersonNestedInput = {
+    create?: XOR<ProjectCreateWithoutContactPersonInput, ProjectUncheckedCreateWithoutContactPersonInput> | ProjectCreateWithoutContactPersonInput[] | ProjectUncheckedCreateWithoutContactPersonInput[]
+    connectOrCreate?: ProjectCreateOrConnectWithoutContactPersonInput | ProjectCreateOrConnectWithoutContactPersonInput[]
+    upsert?: ProjectUpsertWithWhereUniqueWithoutContactPersonInput | ProjectUpsertWithWhereUniqueWithoutContactPersonInput[]
+    createMany?: ProjectCreateManyContactPersonInputEnvelope
+    set?: ProjectWhereUniqueInput | ProjectWhereUniqueInput[]
+    disconnect?: ProjectWhereUniqueInput | ProjectWhereUniqueInput[]
+    delete?: ProjectWhereUniqueInput | ProjectWhereUniqueInput[]
+    connect?: ProjectWhereUniqueInput | ProjectWhereUniqueInput[]
+    update?: ProjectUpdateWithWhereUniqueWithoutContactPersonInput | ProjectUpdateWithWhereUniqueWithoutContactPersonInput[]
+    updateMany?: ProjectUpdateManyWithWhereWithoutContactPersonInput | ProjectUpdateManyWithWhereWithoutContactPersonInput[]
+    deleteMany?: ProjectScalarWhereInput | ProjectScalarWhereInput[]
+  }
+
+  export type ProjectUncheckedUpdateManyWithoutContactPersonNestedInput = {
+    create?: XOR<ProjectCreateWithoutContactPersonInput, ProjectUncheckedCreateWithoutContactPersonInput> | ProjectCreateWithoutContactPersonInput[] | ProjectUncheckedCreateWithoutContactPersonInput[]
+    connectOrCreate?: ProjectCreateOrConnectWithoutContactPersonInput | ProjectCreateOrConnectWithoutContactPersonInput[]
+    upsert?: ProjectUpsertWithWhereUniqueWithoutContactPersonInput | ProjectUpsertWithWhereUniqueWithoutContactPersonInput[]
+    createMany?: ProjectCreateManyContactPersonInputEnvelope
+    set?: ProjectWhereUniqueInput | ProjectWhereUniqueInput[]
+    disconnect?: ProjectWhereUniqueInput | ProjectWhereUniqueInput[]
+    delete?: ProjectWhereUniqueInput | ProjectWhereUniqueInput[]
+    connect?: ProjectWhereUniqueInput | ProjectWhereUniqueInput[]
+    update?: ProjectUpdateWithWhereUniqueWithoutContactPersonInput | ProjectUpdateWithWhereUniqueWithoutContactPersonInput[]
+    updateMany?: ProjectUpdateManyWithWhereWithoutContactPersonInput | ProjectUpdateManyWithWhereWithoutContactPersonInput[]
     deleteMany?: ProjectScalarWhereInput | ProjectScalarWhereInput[]
   }
 
@@ -13819,33 +15383,45 @@ export namespace Prisma {
   export type CustomerCreateWithoutProjectsInput = {
     name: string
     orderer: string
-    contactName: string
-    contactEmail: string
-    contactPhone: string
     poNumber: string
     hourlyRate: number
-    totalCost: number
-    salesValue: number
     partialInvoice: boolean
+    contactPersons?: ContactPersonCreateNestedManyWithoutCustomerInput
   }
 
   export type CustomerUncheckedCreateWithoutProjectsInput = {
     id?: number
     name: string
     orderer: string
-    contactName: string
-    contactEmail: string
-    contactPhone: string
     poNumber: string
     hourlyRate: number
-    totalCost: number
-    salesValue: number
     partialInvoice: boolean
+    contactPersons?: ContactPersonUncheckedCreateNestedManyWithoutCustomerInput
   }
 
   export type CustomerCreateOrConnectWithoutProjectsInput = {
     where: CustomerWhereUniqueInput
     create: XOR<CustomerCreateWithoutProjectsInput, CustomerUncheckedCreateWithoutProjectsInput>
+  }
+
+  export type ContactPersonCreateWithoutProjectsInput = {
+    name: string
+    email: string
+    phone: string
+    customer: CustomerCreateNestedOneWithoutContactPersonsInput
+  }
+
+  export type ContactPersonUncheckedCreateWithoutProjectsInput = {
+    id?: number
+    name: string
+    email: string
+    phone: string
+    customerId: number
+  }
+
+  export type ContactPersonCreateOrConnectWithoutProjectsInput = {
+    where: ContactPersonWhereUniqueInput
+    create: XOR<ContactPersonCreateWithoutProjectsInput, ContactPersonUncheckedCreateWithoutProjectsInput>
   }
 
   export type TimeReportCreateWithoutProjectInput = {
@@ -13969,28 +15545,46 @@ export namespace Prisma {
   export type CustomerUpdateWithoutProjectsInput = {
     name?: StringFieldUpdateOperationsInput | string
     orderer?: StringFieldUpdateOperationsInput | string
-    contactName?: StringFieldUpdateOperationsInput | string
-    contactEmail?: StringFieldUpdateOperationsInput | string
-    contactPhone?: StringFieldUpdateOperationsInput | string
     poNumber?: StringFieldUpdateOperationsInput | string
     hourlyRate?: FloatFieldUpdateOperationsInput | number
-    totalCost?: FloatFieldUpdateOperationsInput | number
-    salesValue?: FloatFieldUpdateOperationsInput | number
     partialInvoice?: BoolFieldUpdateOperationsInput | boolean
+    contactPersons?: ContactPersonUpdateManyWithoutCustomerNestedInput
   }
 
   export type CustomerUncheckedUpdateWithoutProjectsInput = {
     id?: IntFieldUpdateOperationsInput | number
     name?: StringFieldUpdateOperationsInput | string
     orderer?: StringFieldUpdateOperationsInput | string
-    contactName?: StringFieldUpdateOperationsInput | string
-    contactEmail?: StringFieldUpdateOperationsInput | string
-    contactPhone?: StringFieldUpdateOperationsInput | string
     poNumber?: StringFieldUpdateOperationsInput | string
     hourlyRate?: FloatFieldUpdateOperationsInput | number
-    totalCost?: FloatFieldUpdateOperationsInput | number
-    salesValue?: FloatFieldUpdateOperationsInput | number
     partialInvoice?: BoolFieldUpdateOperationsInput | boolean
+    contactPersons?: ContactPersonUncheckedUpdateManyWithoutCustomerNestedInput
+  }
+
+  export type ContactPersonUpsertWithoutProjectsInput = {
+    update: XOR<ContactPersonUpdateWithoutProjectsInput, ContactPersonUncheckedUpdateWithoutProjectsInput>
+    create: XOR<ContactPersonCreateWithoutProjectsInput, ContactPersonUncheckedCreateWithoutProjectsInput>
+    where?: ContactPersonWhereInput
+  }
+
+  export type ContactPersonUpdateToOneWithWhereWithoutProjectsInput = {
+    where?: ContactPersonWhereInput
+    data: XOR<ContactPersonUpdateWithoutProjectsInput, ContactPersonUncheckedUpdateWithoutProjectsInput>
+  }
+
+  export type ContactPersonUpdateWithoutProjectsInput = {
+    name?: StringFieldUpdateOperationsInput | string
+    email?: StringFieldUpdateOperationsInput | string
+    phone?: StringFieldUpdateOperationsInput | string
+    customer?: CustomerUpdateOneRequiredWithoutContactPersonsNestedInput
+  }
+
+  export type ContactPersonUncheckedUpdateWithoutProjectsInput = {
+    id?: IntFieldUpdateOperationsInput | number
+    name?: StringFieldUpdateOperationsInput | string
+    email?: StringFieldUpdateOperationsInput | string
+    phone?: StringFieldUpdateOperationsInput | string
+    customerId?: IntFieldUpdateOperationsInput | number
   }
 
   export type TimeReportUpsertWithWhereUniqueWithoutProjectInput = {
@@ -14083,6 +15677,31 @@ export namespace Prisma {
     hoursQuoted?: FloatFilter<"ProjectRole"> | number
   }
 
+  export type ContactPersonCreateWithoutCustomerInput = {
+    name: string
+    email: string
+    phone: string
+    projects?: ProjectCreateNestedManyWithoutContactPersonInput
+  }
+
+  export type ContactPersonUncheckedCreateWithoutCustomerInput = {
+    id?: number
+    name: string
+    email: string
+    phone: string
+    projects?: ProjectUncheckedCreateNestedManyWithoutContactPersonInput
+  }
+
+  export type ContactPersonCreateOrConnectWithoutCustomerInput = {
+    where: ContactPersonWhereUniqueInput
+    create: XOR<ContactPersonCreateWithoutCustomerInput, ContactPersonUncheckedCreateWithoutCustomerInput>
+  }
+
+  export type ContactPersonCreateManyCustomerInputEnvelope = {
+    data: ContactPersonCreateManyCustomerInput | ContactPersonCreateManyCustomerInput[]
+    skipDuplicates?: boolean
+  }
+
   export type ProjectCreateWithoutCustomerInput = {
     name: string
     description: string
@@ -14090,9 +15709,12 @@ export namespace Prisma {
     deadline: Date | string
     hourLeft: number
     projectType: string
+    totalCost?: number
+    salesValue?: number
     createdAt?: Date | string
     updatedAt?: Date | string
     status?: StatusCreateNestedOneWithoutProjectsInput
+    contactPerson?: ContactPersonCreateNestedOneWithoutProjectsInput
     timeReports?: TimeReportCreateNestedManyWithoutProjectInput
     tasks?: ProjectTaskCreateNestedManyWithoutProjectInput
     projectRoles?: ProjectRoleCreateNestedManyWithoutProjectInput
@@ -14106,7 +15728,10 @@ export namespace Prisma {
     deadline: Date | string
     hourLeft: number
     projectType: string
+    totalCost?: number
+    salesValue?: number
     statusId?: number | null
+    contactPersonId?: number | null
     createdAt?: Date | string
     updatedAt?: Date | string
     timeReports?: TimeReportUncheckedCreateNestedManyWithoutProjectInput
@@ -14122,6 +15747,33 @@ export namespace Prisma {
   export type ProjectCreateManyCustomerInputEnvelope = {
     data: ProjectCreateManyCustomerInput | ProjectCreateManyCustomerInput[]
     skipDuplicates?: boolean
+  }
+
+  export type ContactPersonUpsertWithWhereUniqueWithoutCustomerInput = {
+    where: ContactPersonWhereUniqueInput
+    update: XOR<ContactPersonUpdateWithoutCustomerInput, ContactPersonUncheckedUpdateWithoutCustomerInput>
+    create: XOR<ContactPersonCreateWithoutCustomerInput, ContactPersonUncheckedCreateWithoutCustomerInput>
+  }
+
+  export type ContactPersonUpdateWithWhereUniqueWithoutCustomerInput = {
+    where: ContactPersonWhereUniqueInput
+    data: XOR<ContactPersonUpdateWithoutCustomerInput, ContactPersonUncheckedUpdateWithoutCustomerInput>
+  }
+
+  export type ContactPersonUpdateManyWithWhereWithoutCustomerInput = {
+    where: ContactPersonScalarWhereInput
+    data: XOR<ContactPersonUpdateManyMutationInput, ContactPersonUncheckedUpdateManyWithoutCustomerInput>
+  }
+
+  export type ContactPersonScalarWhereInput = {
+    AND?: ContactPersonScalarWhereInput | ContactPersonScalarWhereInput[]
+    OR?: ContactPersonScalarWhereInput[]
+    NOT?: ContactPersonScalarWhereInput | ContactPersonScalarWhereInput[]
+    id?: IntFilter<"ContactPerson"> | number
+    name?: StringFilter<"ContactPerson"> | string
+    email?: StringFilter<"ContactPerson"> | string
+    phone?: StringFilter<"ContactPerson"> | string
+    customerId?: IntFilter<"ContactPerson"> | number
   }
 
   export type ProjectUpsertWithWhereUniqueWithoutCustomerInput = {
@@ -14151,10 +15803,130 @@ export namespace Prisma {
     deadline?: DateTimeFilter<"Project"> | Date | string
     hourLeft?: FloatFilter<"Project"> | number
     projectType?: StringFilter<"Project"> | string
+    totalCost?: FloatFilter<"Project"> | number
+    salesValue?: FloatFilter<"Project"> | number
     statusId?: IntNullableFilter<"Project"> | number | null
     customerId?: IntNullableFilter<"Project"> | number | null
+    contactPersonId?: IntNullableFilter<"Project"> | number | null
     createdAt?: DateTimeFilter<"Project"> | Date | string
     updatedAt?: DateTimeFilter<"Project"> | Date | string
+  }
+
+  export type CustomerCreateWithoutContactPersonsInput = {
+    name: string
+    orderer: string
+    poNumber: string
+    hourlyRate: number
+    partialInvoice: boolean
+    projects?: ProjectCreateNestedManyWithoutCustomerInput
+  }
+
+  export type CustomerUncheckedCreateWithoutContactPersonsInput = {
+    id?: number
+    name: string
+    orderer: string
+    poNumber: string
+    hourlyRate: number
+    partialInvoice: boolean
+    projects?: ProjectUncheckedCreateNestedManyWithoutCustomerInput
+  }
+
+  export type CustomerCreateOrConnectWithoutContactPersonsInput = {
+    where: CustomerWhereUniqueInput
+    create: XOR<CustomerCreateWithoutContactPersonsInput, CustomerUncheckedCreateWithoutContactPersonsInput>
+  }
+
+  export type ProjectCreateWithoutContactPersonInput = {
+    name: string
+    description: string
+    startDate: Date | string
+    deadline: Date | string
+    hourLeft: number
+    projectType: string
+    totalCost?: number
+    salesValue?: number
+    createdAt?: Date | string
+    updatedAt?: Date | string
+    status?: StatusCreateNestedOneWithoutProjectsInput
+    customer?: CustomerCreateNestedOneWithoutProjectsInput
+    timeReports?: TimeReportCreateNestedManyWithoutProjectInput
+    tasks?: ProjectTaskCreateNestedManyWithoutProjectInput
+    projectRoles?: ProjectRoleCreateNestedManyWithoutProjectInput
+  }
+
+  export type ProjectUncheckedCreateWithoutContactPersonInput = {
+    id?: number
+    name: string
+    description: string
+    startDate: Date | string
+    deadline: Date | string
+    hourLeft: number
+    projectType: string
+    totalCost?: number
+    salesValue?: number
+    statusId?: number | null
+    customerId?: number | null
+    createdAt?: Date | string
+    updatedAt?: Date | string
+    timeReports?: TimeReportUncheckedCreateNestedManyWithoutProjectInput
+    tasks?: ProjectTaskUncheckedCreateNestedManyWithoutProjectInput
+    projectRoles?: ProjectRoleUncheckedCreateNestedManyWithoutProjectInput
+  }
+
+  export type ProjectCreateOrConnectWithoutContactPersonInput = {
+    where: ProjectWhereUniqueInput
+    create: XOR<ProjectCreateWithoutContactPersonInput, ProjectUncheckedCreateWithoutContactPersonInput>
+  }
+
+  export type ProjectCreateManyContactPersonInputEnvelope = {
+    data: ProjectCreateManyContactPersonInput | ProjectCreateManyContactPersonInput[]
+    skipDuplicates?: boolean
+  }
+
+  export type CustomerUpsertWithoutContactPersonsInput = {
+    update: XOR<CustomerUpdateWithoutContactPersonsInput, CustomerUncheckedUpdateWithoutContactPersonsInput>
+    create: XOR<CustomerCreateWithoutContactPersonsInput, CustomerUncheckedCreateWithoutContactPersonsInput>
+    where?: CustomerWhereInput
+  }
+
+  export type CustomerUpdateToOneWithWhereWithoutContactPersonsInput = {
+    where?: CustomerWhereInput
+    data: XOR<CustomerUpdateWithoutContactPersonsInput, CustomerUncheckedUpdateWithoutContactPersonsInput>
+  }
+
+  export type CustomerUpdateWithoutContactPersonsInput = {
+    name?: StringFieldUpdateOperationsInput | string
+    orderer?: StringFieldUpdateOperationsInput | string
+    poNumber?: StringFieldUpdateOperationsInput | string
+    hourlyRate?: FloatFieldUpdateOperationsInput | number
+    partialInvoice?: BoolFieldUpdateOperationsInput | boolean
+    projects?: ProjectUpdateManyWithoutCustomerNestedInput
+  }
+
+  export type CustomerUncheckedUpdateWithoutContactPersonsInput = {
+    id?: IntFieldUpdateOperationsInput | number
+    name?: StringFieldUpdateOperationsInput | string
+    orderer?: StringFieldUpdateOperationsInput | string
+    poNumber?: StringFieldUpdateOperationsInput | string
+    hourlyRate?: FloatFieldUpdateOperationsInput | number
+    partialInvoice?: BoolFieldUpdateOperationsInput | boolean
+    projects?: ProjectUncheckedUpdateManyWithoutCustomerNestedInput
+  }
+
+  export type ProjectUpsertWithWhereUniqueWithoutContactPersonInput = {
+    where: ProjectWhereUniqueInput
+    update: XOR<ProjectUpdateWithoutContactPersonInput, ProjectUncheckedUpdateWithoutContactPersonInput>
+    create: XOR<ProjectCreateWithoutContactPersonInput, ProjectUncheckedCreateWithoutContactPersonInput>
+  }
+
+  export type ProjectUpdateWithWhereUniqueWithoutContactPersonInput = {
+    where: ProjectWhereUniqueInput
+    data: XOR<ProjectUpdateWithoutContactPersonInput, ProjectUncheckedUpdateWithoutContactPersonInput>
+  }
+
+  export type ProjectUpdateManyWithWhereWithoutContactPersonInput = {
+    where: ProjectScalarWhereInput
+    data: XOR<ProjectUpdateManyMutationInput, ProjectUncheckedUpdateManyWithoutContactPersonInput>
   }
 
   export type ProjectCreateWithoutStatusInput = {
@@ -14164,9 +15936,12 @@ export namespace Prisma {
     deadline: Date | string
     hourLeft: number
     projectType: string
+    totalCost?: number
+    salesValue?: number
     createdAt?: Date | string
     updatedAt?: Date | string
     customer?: CustomerCreateNestedOneWithoutProjectsInput
+    contactPerson?: ContactPersonCreateNestedOneWithoutProjectsInput
     timeReports?: TimeReportCreateNestedManyWithoutProjectInput
     tasks?: ProjectTaskCreateNestedManyWithoutProjectInput
     projectRoles?: ProjectRoleCreateNestedManyWithoutProjectInput
@@ -14180,7 +15955,10 @@ export namespace Prisma {
     deadline: Date | string
     hourLeft: number
     projectType: string
+    totalCost?: number
+    salesValue?: number
     customerId?: number | null
+    contactPersonId?: number | null
     createdAt?: Date | string
     updatedAt?: Date | string
     timeReports?: TimeReportUncheckedCreateNestedManyWithoutProjectInput
@@ -14260,10 +16038,13 @@ export namespace Prisma {
     deadline: Date | string
     hourLeft: number
     projectType: string
+    totalCost?: number
+    salesValue?: number
     createdAt?: Date | string
     updatedAt?: Date | string
     status?: StatusCreateNestedOneWithoutProjectsInput
     customer?: CustomerCreateNestedOneWithoutProjectsInput
+    contactPerson?: ContactPersonCreateNestedOneWithoutProjectsInput
     timeReports?: TimeReportCreateNestedManyWithoutProjectInput
     tasks?: ProjectTaskCreateNestedManyWithoutProjectInput
   }
@@ -14276,8 +16057,11 @@ export namespace Prisma {
     deadline: Date | string
     hourLeft: number
     projectType: string
+    totalCost?: number
+    salesValue?: number
     statusId?: number | null
     customerId?: number | null
+    contactPersonId?: number | null
     createdAt?: Date | string
     updatedAt?: Date | string
     timeReports?: TimeReportUncheckedCreateNestedManyWithoutProjectInput
@@ -14347,10 +16131,13 @@ export namespace Prisma {
     deadline?: DateTimeFieldUpdateOperationsInput | Date | string
     hourLeft?: FloatFieldUpdateOperationsInput | number
     projectType?: StringFieldUpdateOperationsInput | string
+    totalCost?: FloatFieldUpdateOperationsInput | number
+    salesValue?: FloatFieldUpdateOperationsInput | number
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
     status?: StatusUpdateOneWithoutProjectsNestedInput
     customer?: CustomerUpdateOneWithoutProjectsNestedInput
+    contactPerson?: ContactPersonUpdateOneWithoutProjectsNestedInput
     timeReports?: TimeReportUpdateManyWithoutProjectNestedInput
     tasks?: ProjectTaskUpdateManyWithoutProjectNestedInput
   }
@@ -14363,8 +16150,11 @@ export namespace Prisma {
     deadline?: DateTimeFieldUpdateOperationsInput | Date | string
     hourLeft?: FloatFieldUpdateOperationsInput | number
     projectType?: StringFieldUpdateOperationsInput | string
+    totalCost?: FloatFieldUpdateOperationsInput | number
+    salesValue?: FloatFieldUpdateOperationsInput | number
     statusId?: NullableIntFieldUpdateOperationsInput | number | null
     customerId?: NullableIntFieldUpdateOperationsInput | number | null
+    contactPersonId?: NullableIntFieldUpdateOperationsInput | number | null
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
     timeReports?: TimeReportUncheckedUpdateManyWithoutProjectNestedInput
@@ -14591,10 +16381,13 @@ export namespace Prisma {
     deadline: Date | string
     hourLeft: number
     projectType: string
+    totalCost?: number
+    salesValue?: number
     createdAt?: Date | string
     updatedAt?: Date | string
     status?: StatusCreateNestedOneWithoutProjectsInput
     customer?: CustomerCreateNestedOneWithoutProjectsInput
+    contactPerson?: ContactPersonCreateNestedOneWithoutProjectsInput
     tasks?: ProjectTaskCreateNestedManyWithoutProjectInput
     projectRoles?: ProjectRoleCreateNestedManyWithoutProjectInput
   }
@@ -14607,8 +16400,11 @@ export namespace Prisma {
     deadline: Date | string
     hourLeft: number
     projectType: string
+    totalCost?: number
+    salesValue?: number
     statusId?: number | null
     customerId?: number | null
+    contactPersonId?: number | null
     createdAt?: Date | string
     updatedAt?: Date | string
     tasks?: ProjectTaskUncheckedCreateNestedManyWithoutProjectInput
@@ -14670,10 +16466,13 @@ export namespace Prisma {
     deadline?: DateTimeFieldUpdateOperationsInput | Date | string
     hourLeft?: FloatFieldUpdateOperationsInput | number
     projectType?: StringFieldUpdateOperationsInput | string
+    totalCost?: FloatFieldUpdateOperationsInput | number
+    salesValue?: FloatFieldUpdateOperationsInput | number
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
     status?: StatusUpdateOneWithoutProjectsNestedInput
     customer?: CustomerUpdateOneWithoutProjectsNestedInput
+    contactPerson?: ContactPersonUpdateOneWithoutProjectsNestedInput
     tasks?: ProjectTaskUpdateManyWithoutProjectNestedInput
     projectRoles?: ProjectRoleUpdateManyWithoutProjectNestedInput
   }
@@ -14686,8 +16485,11 @@ export namespace Prisma {
     deadline?: DateTimeFieldUpdateOperationsInput | Date | string
     hourLeft?: FloatFieldUpdateOperationsInput | number
     projectType?: StringFieldUpdateOperationsInput | string
+    totalCost?: FloatFieldUpdateOperationsInput | number
+    salesValue?: FloatFieldUpdateOperationsInput | number
     statusId?: NullableIntFieldUpdateOperationsInput | number | null
     customerId?: NullableIntFieldUpdateOperationsInput | number | null
+    contactPersonId?: NullableIntFieldUpdateOperationsInput | number | null
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
     tasks?: ProjectTaskUncheckedUpdateManyWithoutProjectNestedInput
@@ -14701,10 +16503,13 @@ export namespace Prisma {
     deadline: Date | string
     hourLeft: number
     projectType: string
+    totalCost?: number
+    salesValue?: number
     createdAt?: Date | string
     updatedAt?: Date | string
     status?: StatusCreateNestedOneWithoutProjectsInput
     customer?: CustomerCreateNestedOneWithoutProjectsInput
+    contactPerson?: ContactPersonCreateNestedOneWithoutProjectsInput
     timeReports?: TimeReportCreateNestedManyWithoutProjectInput
     projectRoles?: ProjectRoleCreateNestedManyWithoutProjectInput
   }
@@ -14717,8 +16522,11 @@ export namespace Prisma {
     deadline: Date | string
     hourLeft: number
     projectType: string
+    totalCost?: number
+    salesValue?: number
     statusId?: number | null
     customerId?: number | null
+    contactPersonId?: number | null
     createdAt?: Date | string
     updatedAt?: Date | string
     timeReports?: TimeReportUncheckedCreateNestedManyWithoutProjectInput
@@ -14774,10 +16582,13 @@ export namespace Prisma {
     deadline?: DateTimeFieldUpdateOperationsInput | Date | string
     hourLeft?: FloatFieldUpdateOperationsInput | number
     projectType?: StringFieldUpdateOperationsInput | string
+    totalCost?: FloatFieldUpdateOperationsInput | number
+    salesValue?: FloatFieldUpdateOperationsInput | number
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
     status?: StatusUpdateOneWithoutProjectsNestedInput
     customer?: CustomerUpdateOneWithoutProjectsNestedInput
+    contactPerson?: ContactPersonUpdateOneWithoutProjectsNestedInput
     timeReports?: TimeReportUpdateManyWithoutProjectNestedInput
     projectRoles?: ProjectRoleUpdateManyWithoutProjectNestedInput
   }
@@ -14790,8 +16601,11 @@ export namespace Prisma {
     deadline?: DateTimeFieldUpdateOperationsInput | Date | string
     hourLeft?: FloatFieldUpdateOperationsInput | number
     projectType?: StringFieldUpdateOperationsInput | string
+    totalCost?: FloatFieldUpdateOperationsInput | number
+    salesValue?: FloatFieldUpdateOperationsInput | number
     statusId?: NullableIntFieldUpdateOperationsInput | number | null
     customerId?: NullableIntFieldUpdateOperationsInput | number | null
+    contactPersonId?: NullableIntFieldUpdateOperationsInput | number | null
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
     timeReports?: TimeReportUncheckedUpdateManyWithoutProjectNestedInput
@@ -14947,6 +16761,13 @@ export namespace Prisma {
     hoursQuoted?: FloatFieldUpdateOperationsInput | number
   }
 
+  export type ContactPersonCreateManyCustomerInput = {
+    id?: number
+    name: string
+    email: string
+    phone: string
+  }
+
   export type ProjectCreateManyCustomerInput = {
     id?: number
     name: string
@@ -14955,9 +16776,34 @@ export namespace Prisma {
     deadline: Date | string
     hourLeft: number
     projectType: string
+    totalCost?: number
+    salesValue?: number
     statusId?: number | null
+    contactPersonId?: number | null
     createdAt?: Date | string
     updatedAt?: Date | string
+  }
+
+  export type ContactPersonUpdateWithoutCustomerInput = {
+    name?: StringFieldUpdateOperationsInput | string
+    email?: StringFieldUpdateOperationsInput | string
+    phone?: StringFieldUpdateOperationsInput | string
+    projects?: ProjectUpdateManyWithoutContactPersonNestedInput
+  }
+
+  export type ContactPersonUncheckedUpdateWithoutCustomerInput = {
+    id?: IntFieldUpdateOperationsInput | number
+    name?: StringFieldUpdateOperationsInput | string
+    email?: StringFieldUpdateOperationsInput | string
+    phone?: StringFieldUpdateOperationsInput | string
+    projects?: ProjectUncheckedUpdateManyWithoutContactPersonNestedInput
+  }
+
+  export type ContactPersonUncheckedUpdateManyWithoutCustomerInput = {
+    id?: IntFieldUpdateOperationsInput | number
+    name?: StringFieldUpdateOperationsInput | string
+    email?: StringFieldUpdateOperationsInput | string
+    phone?: StringFieldUpdateOperationsInput | string
   }
 
   export type ProjectUpdateWithoutCustomerInput = {
@@ -14967,9 +16813,12 @@ export namespace Prisma {
     deadline?: DateTimeFieldUpdateOperationsInput | Date | string
     hourLeft?: FloatFieldUpdateOperationsInput | number
     projectType?: StringFieldUpdateOperationsInput | string
+    totalCost?: FloatFieldUpdateOperationsInput | number
+    salesValue?: FloatFieldUpdateOperationsInput | number
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
     status?: StatusUpdateOneWithoutProjectsNestedInput
+    contactPerson?: ContactPersonUpdateOneWithoutProjectsNestedInput
     timeReports?: TimeReportUpdateManyWithoutProjectNestedInput
     tasks?: ProjectTaskUpdateManyWithoutProjectNestedInput
     projectRoles?: ProjectRoleUpdateManyWithoutProjectNestedInput
@@ -14983,7 +16832,10 @@ export namespace Prisma {
     deadline?: DateTimeFieldUpdateOperationsInput | Date | string
     hourLeft?: FloatFieldUpdateOperationsInput | number
     projectType?: StringFieldUpdateOperationsInput | string
+    totalCost?: FloatFieldUpdateOperationsInput | number
+    salesValue?: FloatFieldUpdateOperationsInput | number
     statusId?: NullableIntFieldUpdateOperationsInput | number | null
+    contactPersonId?: NullableIntFieldUpdateOperationsInput | number | null
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
     timeReports?: TimeReportUncheckedUpdateManyWithoutProjectNestedInput
@@ -14999,7 +16851,79 @@ export namespace Prisma {
     deadline?: DateTimeFieldUpdateOperationsInput | Date | string
     hourLeft?: FloatFieldUpdateOperationsInput | number
     projectType?: StringFieldUpdateOperationsInput | string
+    totalCost?: FloatFieldUpdateOperationsInput | number
+    salesValue?: FloatFieldUpdateOperationsInput | number
     statusId?: NullableIntFieldUpdateOperationsInput | number | null
+    contactPersonId?: NullableIntFieldUpdateOperationsInput | number | null
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+  }
+
+  export type ProjectCreateManyContactPersonInput = {
+    id?: number
+    name: string
+    description: string
+    startDate: Date | string
+    deadline: Date | string
+    hourLeft: number
+    projectType: string
+    totalCost?: number
+    salesValue?: number
+    statusId?: number | null
+    customerId?: number | null
+    createdAt?: Date | string
+    updatedAt?: Date | string
+  }
+
+  export type ProjectUpdateWithoutContactPersonInput = {
+    name?: StringFieldUpdateOperationsInput | string
+    description?: StringFieldUpdateOperationsInput | string
+    startDate?: DateTimeFieldUpdateOperationsInput | Date | string
+    deadline?: DateTimeFieldUpdateOperationsInput | Date | string
+    hourLeft?: FloatFieldUpdateOperationsInput | number
+    projectType?: StringFieldUpdateOperationsInput | string
+    totalCost?: FloatFieldUpdateOperationsInput | number
+    salesValue?: FloatFieldUpdateOperationsInput | number
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    status?: StatusUpdateOneWithoutProjectsNestedInput
+    customer?: CustomerUpdateOneWithoutProjectsNestedInput
+    timeReports?: TimeReportUpdateManyWithoutProjectNestedInput
+    tasks?: ProjectTaskUpdateManyWithoutProjectNestedInput
+    projectRoles?: ProjectRoleUpdateManyWithoutProjectNestedInput
+  }
+
+  export type ProjectUncheckedUpdateWithoutContactPersonInput = {
+    id?: IntFieldUpdateOperationsInput | number
+    name?: StringFieldUpdateOperationsInput | string
+    description?: StringFieldUpdateOperationsInput | string
+    startDate?: DateTimeFieldUpdateOperationsInput | Date | string
+    deadline?: DateTimeFieldUpdateOperationsInput | Date | string
+    hourLeft?: FloatFieldUpdateOperationsInput | number
+    projectType?: StringFieldUpdateOperationsInput | string
+    totalCost?: FloatFieldUpdateOperationsInput | number
+    salesValue?: FloatFieldUpdateOperationsInput | number
+    statusId?: NullableIntFieldUpdateOperationsInput | number | null
+    customerId?: NullableIntFieldUpdateOperationsInput | number | null
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    timeReports?: TimeReportUncheckedUpdateManyWithoutProjectNestedInput
+    tasks?: ProjectTaskUncheckedUpdateManyWithoutProjectNestedInput
+    projectRoles?: ProjectRoleUncheckedUpdateManyWithoutProjectNestedInput
+  }
+
+  export type ProjectUncheckedUpdateManyWithoutContactPersonInput = {
+    id?: IntFieldUpdateOperationsInput | number
+    name?: StringFieldUpdateOperationsInput | string
+    description?: StringFieldUpdateOperationsInput | string
+    startDate?: DateTimeFieldUpdateOperationsInput | Date | string
+    deadline?: DateTimeFieldUpdateOperationsInput | Date | string
+    hourLeft?: FloatFieldUpdateOperationsInput | number
+    projectType?: StringFieldUpdateOperationsInput | string
+    totalCost?: FloatFieldUpdateOperationsInput | number
+    salesValue?: FloatFieldUpdateOperationsInput | number
+    statusId?: NullableIntFieldUpdateOperationsInput | number | null
+    customerId?: NullableIntFieldUpdateOperationsInput | number | null
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
   }
@@ -15012,7 +16936,10 @@ export namespace Prisma {
     deadline: Date | string
     hourLeft: number
     projectType: string
+    totalCost?: number
+    salesValue?: number
     customerId?: number | null
+    contactPersonId?: number | null
     createdAt?: Date | string
     updatedAt?: Date | string
   }
@@ -15024,9 +16951,12 @@ export namespace Prisma {
     deadline?: DateTimeFieldUpdateOperationsInput | Date | string
     hourLeft?: FloatFieldUpdateOperationsInput | number
     projectType?: StringFieldUpdateOperationsInput | string
+    totalCost?: FloatFieldUpdateOperationsInput | number
+    salesValue?: FloatFieldUpdateOperationsInput | number
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
     customer?: CustomerUpdateOneWithoutProjectsNestedInput
+    contactPerson?: ContactPersonUpdateOneWithoutProjectsNestedInput
     timeReports?: TimeReportUpdateManyWithoutProjectNestedInput
     tasks?: ProjectTaskUpdateManyWithoutProjectNestedInput
     projectRoles?: ProjectRoleUpdateManyWithoutProjectNestedInput
@@ -15040,7 +16970,10 @@ export namespace Prisma {
     deadline?: DateTimeFieldUpdateOperationsInput | Date | string
     hourLeft?: FloatFieldUpdateOperationsInput | number
     projectType?: StringFieldUpdateOperationsInput | string
+    totalCost?: FloatFieldUpdateOperationsInput | number
+    salesValue?: FloatFieldUpdateOperationsInput | number
     customerId?: NullableIntFieldUpdateOperationsInput | number | null
+    contactPersonId?: NullableIntFieldUpdateOperationsInput | number | null
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
     timeReports?: TimeReportUncheckedUpdateManyWithoutProjectNestedInput
@@ -15056,7 +16989,10 @@ export namespace Prisma {
     deadline?: DateTimeFieldUpdateOperationsInput | Date | string
     hourLeft?: FloatFieldUpdateOperationsInput | number
     projectType?: StringFieldUpdateOperationsInput | string
+    totalCost?: FloatFieldUpdateOperationsInput | number
+    salesValue?: FloatFieldUpdateOperationsInput | number
     customerId?: NullableIntFieldUpdateOperationsInput | number | null
+    contactPersonId?: NullableIntFieldUpdateOperationsInput | number | null
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
   }

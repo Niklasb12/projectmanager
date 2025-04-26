@@ -1,6 +1,7 @@
 import { GetServerSideProps } from "next";
 import { getServerSession } from "next-auth";
 import { authOptions } from "@/pages/api/auth/[...nextauth]";
+import { getMineProjectsQuery } from "@/lib/queries/projects";
 
 export const getMineProjects: GetServerSideProps = async (context) => {
   const session = await getServerSession(context.req, context.res, authOptions);
@@ -9,16 +10,17 @@ export const getMineProjects: GetServerSideProps = async (context) => {
     return { redirect: { destination: "/login", permanent: false } };
   }
 
-  const baseUrl = process.env.NEXT_PUBLIC_API_URL ?? "http://localhost:3000";
-  const res = await fetch(`${baseUrl}/api/projects/mine`, {
-    headers: {
-      Cookie: context.req.headers.cookie || "",
-    },
-  });
-
-  const projects = await res.json();
+  const projects = await getMineProjectsQuery(session.user.id);
 
   return {
-    props: { projects },
+    props: {
+      projects: projects.map((p: any) => ({
+        ...p,
+        startDate: p.startDate.toISOString(),
+        deadline: p.deadline.toISOString(),
+        createdAt: p.createdAt.toISOString(),
+        updatedAt: p.updatedAt.toISOString(),
+      })),
+    },
   };
 };

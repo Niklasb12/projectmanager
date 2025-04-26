@@ -1,0 +1,131 @@
+generator client {
+  provider = "prisma-client-js"
+  output   = "../src/generated/prisma"
+}
+
+datasource db {
+  provider = "postgresql"
+  url      = env("DATABASE_URL")
+}
+
+enum Role {
+  admin
+  worker
+}
+
+enum TaskStatus {
+  PENDING
+  IN_PROGRESS
+  BLOCKED
+  DONE
+}
+
+model Project {
+  id              Int            @id @default(autoincrement())
+  name            String
+  description     String
+  startDate       DateTime
+  deadline        DateTime
+  hourLeft        Float
+  projectType     String
+  totalCost       Float          @default(0)
+  salesValue      Float          @default(0)
+  status          Status?        @relation(fields: [statusId], references: [id])
+  statusId        Int?
+  customer        Customer?      @relation(fields: [customerId], references: [id])
+  customerId      Int?
+  contactPerson   ContactPerson? @relation(fields: [contactPersonId], references: [id])
+  contactPersonId Int?
+
+  timeReports  TimeReport[]
+  tasks        ProjectTask[]
+  projectRoles ProjectRole[]
+
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+}
+
+model Customer {
+  id             Int             @id @default(autoincrement())
+  name           String
+  orderer        String
+  poNumber       String
+  hourlyRate     Float
+  partialInvoice Boolean
+  contactPersons ContactPerson[] // 🔥 Flera kontaktpersoner
+  projects       Project[]
+}
+
+model ContactPerson {
+  id         Int       @id @default(autoincrement())
+  name       String
+  email      String
+  phone      String
+  customer   Customer  @relation(fields: [customerId], references: [id])
+  customerId Int
+  projects   Project[] // 🔥 Kopplas till projekt
+}
+
+model Status {
+  id       Int       @id @default(autoincrement())
+  name     String
+  projects Project[]
+}
+
+model ProjectRoleType {
+  id           Int           @id @default(autoincrement())
+  name         String
+  projectRoles ProjectRole[]
+}
+
+model ProjectRole {
+  id          Int             @id @default(autoincrement())
+  project     Project         @relation(fields: [projectId], references: [id])
+  projectId   Int
+  user        User            @relation(fields: [userId], references: [id])
+  userId      Int
+  role        ProjectRoleType @relation(fields: [roleId], references: [id])
+  roleId      Int
+  hoursQuoted Float
+}
+
+model User {
+  id            Int           @id @default(autoincrement())
+  name          String
+  email         String        @unique
+  username      String        @unique
+  password      String
+  role          String
+  projectRoles  ProjectRole[]
+  timeReports   TimeReport[]
+  assignedTasks ProjectTask[] @relation("AssignedTasks")
+}
+
+model TimeReport {
+  id          Int      @id @default(autoincrement())
+  date        DateTime
+  hoursWorked Float
+  part        String?
+  description String?
+  notes       String?
+  user        User     @relation(fields: [userId], references: [id])
+  userId      Int
+  project     Project  @relation(fields: [projectId], references: [id])
+  projectId   Int
+  createdAt   DateTime @default(now())
+}
+
+model ProjectTask {
+  id           Int        @id @default(autoincrement())
+  title        String
+  description  String?
+  status       TaskStatus @default(PENDING)
+  isCompleted  Boolean    @default(false)
+  dueDate      DateTime?
+  project      Project    @relation(fields: [projectId], references: [id])
+  projectId    Int
+  assignedTo   User?      @relation(fields: [assignedToId], references: [id], name: "AssignedTasks")
+  assignedToId Int?
+  createdAt    DateTime   @default(now())
+  updatedAt    DateTime   @updatedAt
+}
