@@ -1,0 +1,87 @@
+.teamSection {
+  width: 50%;
+  background: #fff;
+  border-radius: 8px;
+  padding: 1rem;
+  margin-bottom: 1rem;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
+
+  transition: all 0.3s ease;
+  &:hover {
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+  }
+  &:focus-within {
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+  }
+  &:active {
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+  }
+  &:focus {
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+  }
+}
+
+.addMember {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 10px;
+}
+
+.addMemberButton {
+  align-self: flex-start;
+  background-color: var(--button-color-primary);
+  color: #fff;
+  border: none;
+  border-radius: 8px;
+  padding: 0.5rem;
+  margin: 10px 0;
+  cursor: pointer;
+  transition: background-color 0.2s ease;
+}
+
+.memberItem {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 0.75rem;
+  border-radius: 8px;
+  background-color: #f9f9f9;
+  margin-bottom: 10px;
+  font-size: 14px;
+}
+
+.memberItem span:nth-child(odd) {
+  width: 33%;
+}
+
+.hours {
+  text-align: center;
+}
+
+.total {
+  font-size: 14px;
+}
+
+.totalAll {
+  text-align: center;
+}
+
+@media (max-width: 760px) {
+  .addMember {
+    display: flex;
+    flex-direction: column;
+  }
+
+  .addMemberButton {
+    width: 100%;
+  }
+}
+
+@media (max-width: 1200px) {
+  .teamSection {
+    width: 100%;
+  }
+}

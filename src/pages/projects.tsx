@@ -13,7 +13,9 @@ const ProjectsPage = ({ projects }: Props) => {
   return (
     <div className={Styles.container}>
       <div className={Styles.content}>
-        <Link href="/add-projects">Lägg till projekt</Link>
+        <Link href="/add-projects" className="button">
+          Lägg till projekt
+        </Link>
         <h1>Alla projekt</h1>
         <ProjectList projects={projects} />
       </div>

@@ -1,3 +1,8 @@
+import { config } from "@fortawesome/fontawesome-svg-core";
+import "@fortawesome/fontawesome-svg-core/styles.css";
+import "@/lib/fontawesome";
+config.autoAddCss = false;
+
 import { Inter } from "next/font/google";
 import "@/styles/globals.css";
 import Layout from "@/components/Layout";

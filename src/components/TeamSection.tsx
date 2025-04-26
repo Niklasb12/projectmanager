@@ -1,4 +1,6 @@
 import React, { useState } from "react";
+import Styles from "@/styles/TeamSection.module.css";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 
 type TeamMember = {
   id: number;
@@ -19,7 +21,7 @@ const TeamSection = () => {
   const [team, setTeam] = useState<TeamMember[]>([]);
   const [selectedRole, setSelectedRole] = useState("");
   const [selectedEmployee, setSelectedEmployee] = useState("");
-  const [hours, setHours] = useState(0);
+  const [hours, setHours] = useState(1);
 
   const addMember = () => {
     if (!selectedRole || !selectedEmployee || hours <= 0) return;
@@ -48,12 +50,14 @@ const TeamSection = () => {
     members: team.filter((m) => m.role === role),
   }));
 
+  const totalCost = team.reduce((sum, m) => sum + m.hours * m.hourlyRate, 0);
+
   return (
-    <div style={{ marginTop: "2rem" }}>
+    <div className={Styles.teamSection}>
       <h3>Team</h3>
 
       {/* Lägg till anställd */}
-      <div style={{ display: "flex", gap: "1rem", marginBottom: "1rem" }}>
+      <div className={Styles.addMember}>
         <select
           value={selectedRole}
           onChange={(e) => setSelectedRole(e.target.value)}
@@ -81,8 +85,12 @@ const TeamSection = () => {
           onChange={(e) => setHours(Number(e.target.value))}
         />
 
-        <button type="button" onClick={addMember}>
-          Lägg till {selectedRole.toLowerCase()}
+        <button
+          type="button"
+          className={Styles.addMemberButton}
+          onClick={addMember}
+        >
+          Lägg till
         </button>
       </div>
 
@@ -92,32 +100,35 @@ const TeamSection = () => {
           <div
             key={role}
             style={{
-              marginBottom: "1.5rem",
               borderTop: "1px solid #ddd",
-              paddingTop: "1rem",
             }}
           >
             <h4>{role}</h4>
             {members.map((m) => (
-              <div
-                key={m.id}
-                style={{ display: "flex", gap: "1rem", alignItems: "center" }}
-              >
+              <div key={m.id} className={Styles.memberItem}>
                 <span>{m.employee}</span>
-                <span>{m.hours} timmar</span>
-                <span>{m.hours * m.hourlyRate} kr</span>
-                <button type="button" onClick={() => removeMember(m.id)}>
-                  🗑️
-                </button>
+                <span>{m.hours}</span>
+                <span className={Styles.hours}>
+                  {m.hours * m.hourlyRate} kr
+                </span>
+                <FontAwesomeIcon
+                  icon="trash"
+                  onClick={() => removeMember(m.id)}
+                />
               </div>
             ))}
-            <p style={{ fontWeight: "bold" }}>
+            <p className={Styles.total}>
               Totalt: {members.reduce((sum, m) => sum + m.hours, 0)} timmar,{" "}
               {members.reduce((sum, m) => sum + m.hours * m.hourlyRate, 0)} kr
             </p>
           </div>
         ) : null
       )}
+
+      {/* Totalen */}
+      <div className={Styles.totalAll}>
+        <strong>Totalt för alla:</strong> {totalCost} kr
+      </div>
     </div>
   );
 };

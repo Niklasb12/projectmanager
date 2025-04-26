@@ -4,10 +4,12 @@ import { getMineProjects } from "@/lib/get-mine-projects";
 
 const addProjects = () => {
   return (
-    <div>
-      <h1>Lägg till projekt</h1>
-      <div>
-        <AddProjectForm />
+    <div className="container">
+      <div className="content">
+        <h1>Lägg till projekt</h1>
+        <div>
+          <AddProjectForm />
+        </div>
       </div>
     </div>
   );
