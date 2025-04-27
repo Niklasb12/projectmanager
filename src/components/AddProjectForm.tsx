@@ -1,14 +1,24 @@
 import React, { useState } from "react";
-import { Editor } from "@tinymce/tinymce-react";
+import dynamic from "next/dynamic";
 import TeamSection from "@/components/TeamSection";
 import Styles from "@/styles/AddProjectForm.module.css";
 import type { Status } from "@/types/status";
+import type { User } from "@/types/user";
+import type { ProjectRole } from "@/types/project-role";
+
+// Dynamisk import av TinyMCE Editor (ssr: false)
+const Editor = dynamic(
+  () => import("@tinymce/tinymce-react").then((mod) => mod.Editor),
+  { ssr: false }
+);
 
 type Props = {
   statuses: Status[];
+  users: User[];
+  projectsRoles: ProjectRole[];
 };
 
-const AddProjectForm = ({ statuses }: Props) => {
+const AddProjectForm = ({ statuses, users, projectsRoles }: Props) => {
   const [description, setDescription] = useState("");
 
   return (
@@ -47,7 +57,7 @@ const AddProjectForm = ({ statuses }: Props) => {
             </select>
           </label>
 
-          {/* Webbplats */}
+          {/* Projektnamn */}
           <label className={Styles.formLabel}>
             Projektnamn:
             <input type="text" placeholder="www.abc.se" />
@@ -77,12 +87,14 @@ const AddProjectForm = ({ statuses }: Props) => {
                   "insertdatetime",
                   "media",
                   "table",
-                  "paste",
                 ],
                 toolbar:
                   "undo redo | formatselect | bold italic underline | " +
                   "alignleft aligncenter alignright alignjustify | " +
                   "bullist numlist outdent indent | link | removeformat",
+                // Viktigt: Ladda TinyMCE via CDN
+                script_url:
+                  "https://cdn.tiny.cloud/1/052bw809hgz4270s3f9qvnpw5cfenqd0q39mogy7psk83otf/tinymce/6/tinymce.min.js",
               }}
             />
           </label>
@@ -111,8 +123,8 @@ const AddProjectForm = ({ statuses }: Props) => {
             </label>
           </div>
         </div>
-        {/* Team-delen placeholder */}
-        <TeamSection />
+        {/* Team-delen */}
+        <TeamSection users={users} projectsRoles={projectsRoles} />
       </form>
       <button type="submit" className="button">
         Skapa projekt

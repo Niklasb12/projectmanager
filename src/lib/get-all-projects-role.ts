@@ -1,18 +1,18 @@
 import { GetServerSideProps } from "next";
 import { getServerSession } from "next-auth";
 import { authOptions } from "@/pages/api/auth/[...nextauth]";
-import { getAllUsersQuery } from "@/lib/queries/users";
+import { getAllProjectsRole } from "@/lib/queries/project-role";
 
-export const getAllUsers: GetServerSideProps = async (context) => {
+export const getAllRoles: GetServerSideProps = async (context) => {
   const session = await getServerSession(context.req, context.res, authOptions);
 
   if (!session || !["admin", "worker"].includes(session.user.role || "")) {
-    return { redirect: { destination: "/", permanent: false } };
+    return { redirect: { destination: "/login", permanent: false } };
   }
 
-  const users = await getAllUsersQuery();
+  const projectsRoles = await getAllProjectsRole();
 
   return {
-    props: { users },
+    props: { projectsRoles },
   };
 };

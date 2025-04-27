@@ -1,6 +1,8 @@
 import React, { useState } from "react";
 import Styles from "@/styles/TeamSection.module.css";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import type { User } from "@/types/user";
+import type { ProjectRole } from "@/types/project-role";
 
 type TeamMember = {
   id: number;
@@ -10,14 +12,12 @@ type TeamMember = {
   hourlyRate: number;
 };
 
-const availableRoles = ["Utvecklare", "Projektledare", "Designer", "Tester"];
-const availableEmployees = [
-  "Emma Andersson",
-  "Niklas Svensson",
-  "Anna Karlsson",
-];
+type Props = {
+  users: User[];
+  projectsRoles: ProjectRole[];
+};
 
-const TeamSection = () => {
+const TeamSection = ({ users, projectsRoles }: Props) => {
   const [team, setTeam] = useState<TeamMember[]>([]);
   const [selectedRole, setSelectedRole] = useState("");
   const [selectedEmployee, setSelectedEmployee] = useState("");
@@ -45,9 +45,9 @@ const TeamSection = () => {
     setTeam((prev) => prev.filter((m) => m.id !== id));
   };
 
-  const groupedByRole = availableRoles.map((role) => ({
+  const groupedByRole = projectsRoles.map((role) => ({
     role,
-    members: team.filter((m) => m.role === role),
+    members: team.filter((m) => m.role === role.name),
   }));
 
   const totalCost = team.reduce((sum, m) => sum + m.hours * m.hourlyRate, 0);
@@ -63,9 +63,11 @@ const TeamSection = () => {
           onChange={(e) => setSelectedRole(e.target.value)}
         >
           <option value="">Välj roll</option>
-          {availableRoles.map((role) => (
-            <option key={role}>{role}</option>
-          ))}
+          {projectsRoles
+            .sort((a, b) => a.id - b.id)
+            .map((role) => (
+              <option key={role.id}>{role.name}</option>
+            ))}
         </select>
 
         <select
@@ -73,8 +75,10 @@ const TeamSection = () => {
           onChange={(e) => setSelectedEmployee(e.target.value)}
         >
           <option value="">Välj anställd</option>
-          {availableEmployees.map((emp) => (
-            <option key={emp}>{emp}</option>
+          {users.map((user) => (
+            <option key={user.id} value={user.name}>
+              {user.name}
+            </option>
           ))}
         </select>
 
@@ -98,12 +102,12 @@ const TeamSection = () => {
       {groupedByRole.map(({ role, members }) =>
         members.length > 0 ? (
           <div
-            key={role}
+            key={role.name}
             style={{
               borderTop: "1px solid #ddd",
             }}
           >
-            <h4>{role}</h4>
+            <h4>{role.name}</h4>
             {members.map((m) => (
               <div key={m.id} className={Styles.memberItem}>
                 <span>{m.employee}</span>
